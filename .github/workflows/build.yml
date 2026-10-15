@@ -1,51 +1,21 @@
 name: build
 
-# This project's Rust is compiled in CI rather than on the author's machine.
-# That machine enforces Windows Smart App Control, which blocks locally-built
-# unsigned executables - including cargo's own build scripts - so `cargo build`
-# cannot complete there. Compiling here and consuming the resulting .wasm with
-# Node keeps the loop working without weakening anyone's machine.
+# The verifier is built here as well as locally so that anyone auditing a
+# tender can download a binary instead of installing a Rust toolchain. A
+# verifier an auditor cannot run is not a verifier.
 #
-# It also happens to be what we want to ship: a verifier that needs no Rust
-# toolchain is one an auditor can actually run.
+# Note on wasm: an earlier version of this workflow built the decryption logic
+# for wasm32 so it could run under Node. That does not compile - `halo2_proofs`,
+# pulled in by Orchard, has a broken non-rayon fallback on wasm32, and Orchard
+# cannot be dropped because modern wallets default to that pool. Shipping native
+# binaries per platform achieves the same goal, so that route was abandoned
+# rather than worked around.
 
 on:
   push:
   workflow_dispatch:
 
 jobs:
-  wasm:
-    name: decryption core (wasm32)
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Add the wasm target
-        run: rustup target add wasm32-unknown-unknown
-
-      - name: Cache cargo
-        uses: actions/cache@v4
-        with:
-          path: |
-            ~/.cargo/registry
-            ~/.cargo/git
-            verifier-core/target
-          key: cargo-${{ hashFiles('verifier-core/Cargo.toml') }}
-
-      - name: Build
-        working-directory: verifier-core
-        run: cargo build --release --target wasm32-unknown-unknown
-
-      - name: Report size
-        working-directory: verifier-core
-        run: ls -la target/wasm32-unknown-unknown/release/*.wasm
-
-      - uses: actions/upload-artifact@v4
-        with:
-          name: tender-verify-core-wasm
-          path: verifier-core/target/wasm32-unknown-unknown/release/*.wasm
-          if-no-files-found: error
-
   selftest:
     name: sealing self-tests
     runs-on: ubuntu-latest
@@ -56,10 +26,52 @@ jobs:
         with:
           node-version: '24'
 
-      - name: Install
-        run: npm ci
+      - run: npm ci
 
       # These assert the security properties of the commitment scheme, not just
       # that the code runs. A failure here means sealed bids are not sealed.
       - name: Run self-tests
         run: node selftest.ts
+
+  verifier:
+    name: verifier (${{ matrix.target }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-latest
+            target: x86_64-unknown-linux-gnu
+          - os: macos-latest
+            target: aarch64-apple-darwin
+          - os: windows-latest
+            target: x86_64-pc-windows-msvc
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Cache cargo
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            verifier/target
+          key: cargo-${{ matrix.target }}-${{ hashFiles('verifier/Cargo.lock') }}
+
+      - name: Build
+        working-directory: verifier
+        run: cargo build --release
+
+      # A smoke test against a public testnet server, so a green build means the
+      # binary actually talks to the chain rather than merely compiling.
+      - name: Check it reaches the chain
+        working-directory: verifier
+        run: cargo run --release --quiet -- tip test https://testnet.zec.rocks:443
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: tender-verify-${{ matrix.target }}
+          path: |
+            verifier/target/release/tender-verify
+            verifier/target/release/tender-verify.exe
+          if-no-files-found: error
