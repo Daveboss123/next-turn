@@ -1,0 +1,34 @@
+[package]
+name = "tender-verify"
+version = "0.1.0"
+edition = "2024"
+
+# Versions are pinned to exactly what zcash_client_backend 0.24 resolves to.
+# These crates share types across their public APIs, so a mismatched minor
+# version produces trait errors that look unrelated to the real cause.
+[dependencies]
+zcash_client_backend = { version = "0.24.0", features = [
+    "lightwalletd-tonic-transport",
+    "lightwalletd-tonic-tls-webpki-roots",
+] }
+zcash_primitives = "0.30.1"
+zcash_keys = "0.16.1"
+zcash_protocol = "0.10.6"
+# `tls-ring` picks rustls's crypto backend. Without an explicit provider,
+# rustls 0.23 panics at the first TLS connection; `ring` is chosen over
+# `aws-lc` because it needs no C toolchain.
+tonic = { version = "0.14", features = [
+    "tls-webpki-roots",
+    "tls-ring",
+    "transport",
+] }
+tokio = { version = "1", features = ["rt-multi-thread", "macros"] }
+getrandom = "0.4"
+zip32 = "0.2"
+hex = "0.4"
+anyhow = "1"
+
+# Compiling librustzcash unoptimised makes note decryption painfully slow,
+# so keep a little optimisation even in debug builds.
+[profile.dev]
+opt-level = 1

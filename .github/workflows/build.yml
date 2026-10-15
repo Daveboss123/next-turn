@@ -1,0 +1,65 @@
+name: build
+
+# This project's Rust is compiled in CI rather than on the author's machine.
+# That machine enforces Windows Smart App Control, which blocks locally-built
+# unsigned executables - including cargo's own build scripts - so `cargo build`
+# cannot complete there. Compiling here and consuming the resulting .wasm with
+# Node keeps the loop working without weakening anyone's machine.
+#
+# It also happens to be what we want to ship: a verifier that needs no Rust
+# toolchain is one an auditor can actually run.
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  wasm:
+    name: decryption core (wasm32)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Add the wasm target
+        run: rustup target add wasm32-unknown-unknown
+
+      - name: Cache cargo
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            verifier-core/target
+          key: cargo-${{ hashFiles('verifier-core/Cargo.toml') }}
+
+      - name: Build
+        working-directory: verifier-core
+        run: cargo build --release --target wasm32-unknown-unknown
+
+      - name: Report size
+        working-directory: verifier-core
+        run: ls -la target/wasm32-unknown-unknown/release/*.wasm
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: tender-verify-core-wasm
+          path: verifier-core/target/wasm32-unknown-unknown/release/*.wasm
+          if-no-files-found: error
+
+  selftest:
+    name: sealing self-tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+
+      - name: Install
+        run: npm ci
+
+      # These assert the security properties of the commitment scheme, not just
+      # that the code runs. A failure here means sealed bids are not sealed.
+      - name: Run self-tests
+        run: node selftest.ts

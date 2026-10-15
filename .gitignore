@@ -22,3 +22,10 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Local secrets: generated seeds and viewing keys. Never commit.
+.local/
+
+# Rust build output (kept outside OneDrive on this machine)
+verifier/target
+verifier-core/target
