@@ -6,14 +6,24 @@ edition = "2024"
 # Versions are pinned to exactly what zcash_client_backend 0.24 resolves to.
 # These crates share types across their public APIs, so a mismatched minor
 # version produces trait errors that look unrelated to the real cause.
+# These are pre-release versions, deliberately.
+#
+# Zcash testnet has activated NU7, whose consensus branch id (0x77190ad9) is
+# only recognised from zcash_protocol 0.11.0-pre.1 onwards. On the stable 0.10.x
+# line every current testnet transaction fails to parse with "invalid consensus
+# branch id", so stable crates cannot read the chain we are testing against.
+#
+# The four crates share types across their public APIs and must come from the
+# same pre-release train, or you get trait errors that look unrelated to the
+# real cause.
 [dependencies]
-zcash_client_backend = { version = "0.24.0", features = [
+zcash_client_backend = { version = "=0.25.0-pre.2", features = [
     "lightwalletd-tonic-transport",
     "lightwalletd-tonic-tls-webpki-roots",
 ] }
-zcash_primitives = "0.30.1"
-zcash_keys = "0.16.1"
-zcash_protocol = "0.10.6"
+zcash_primitives = "=0.31.0-pre.2"
+zcash_keys = "=0.17.0-pre.2"
+zcash_protocol = "=0.11.0-pre.1"
 # `tls-ring` picks rustls's crypto backend. Without an explicit provider,
 # rustls 0.23 panics at the first TLS connection; `ring` is chosen over
 # `aws-lc` because it needs no C toolchain.
@@ -24,7 +34,7 @@ tonic = { version = "0.14", features = [
 ] }
 tokio = { version = "1", features = ["rt-multi-thread", "macros"] }
 getrandom = "0.4"
-zip32 = "0.2"
+zip32 = "0.3"
 hex = "0.4"
 anyhow = "1"
 
