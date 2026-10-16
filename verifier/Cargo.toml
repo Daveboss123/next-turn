@@ -35,6 +35,9 @@ tonic = { version = "0.14", features = [
 tokio = { version = "1", features = ["rt-multi-thread", "macros"] }
 getrandom = "0.4"
 zip32 = "0.3"
+# Same major line zcash_keys uses, so a phrase generated here derives exactly
+# the addresses that Zashi or Zingo derive when it is restored there.
+bip0039 = "0.12"
 hex = "0.4"
 anyhow = "1"
 

@@ -13,6 +13,7 @@
 //! Commands:
 //!   tender-verify tip    <main|test> <server>
 //!   tender-verify keygen <main|test>
+//!   tender-verify wallet <main|test>
 //!   tender-verify read   <main|test> <server> <ufvk> <txid>...
 //!   tender-verify scan   <main|test> <server> <ufvk> <from-height> [to-height]
 
@@ -48,6 +49,7 @@ async fn main() -> Result<()> {
     match args[0].as_str() {
         "tip" if args.len() == 3 => tip(args[2].clone()).await,
         "keygen" if args.len() == 2 => keygen(parse_network(&args[1])?),
+        "wallet" if args.len() == 2 => wallet(parse_network(&args[1])?),
         "read" if args.len() >= 5 => {
             read(parse_network(&args[1])?, args[2].clone(), &args[3], &args[4..]).await
         }
@@ -69,6 +71,7 @@ fn usage() -> ! {
          commands:\n  \
          tip    <main|test> <server>                                 check the server is reachable\n  \
          keygen <main|test>                                          make a tender address and viewing key\n  \
+         wallet <main|test>                                          make a bidder wallet as a 24-word phrase\n  \
          read   <main|test> <server> <ufvk> <txid>...                decrypt specific transactions\n  \
          scan   <main|test> <server> <ufvk> <from> [to]              find every bid in a height range\n\n\
          example:\n  \
@@ -161,6 +164,47 @@ fn keygen(network: Network) -> Result<()> {
     Ok(())
 }
 
+/// Generate a bidder wallet as a standard 24-word recovery phrase.
+///
+/// This exists for development and the demo, not for production bidders, who
+/// use whatever wallet they already have. It derives keys the same way Zashi
+/// and Zingo do (BIP 39 seed with an empty passphrase, then ZIP 32 account 0),
+/// so the phrase can be restored into a real wallet app and will show the same
+/// address and balance. That lets one funded wallet serve both our own scripted
+/// tests and a person sending bids by hand.
+fn wallet(network: Network) -> Result<()> {
+    let mut entropy = [0u8; 32];
+    getrandom::fill(&mut entropy).context("could not get randomness from the operating system")?;
+
+    let mnemonic = bip0039::Mnemonic::<bip0039::English>::from_entropy(entropy.to_vec())
+        .map_err(|e| anyhow!("could not build a recovery phrase: {e}"))?;
+    let seed = mnemonic.to_seed("");
+
+    let usk = UnifiedSpendingKey::from_seed(&network, &seed, zip32::AccountId::ZERO)
+        .map_err(|e| anyhow!("could not derive a spending key: {e}"))?;
+    let ufvk = usk.to_unified_full_viewing_key();
+
+    // Shielded only, for the same reason as tender addresses: a transparent
+    // receiver is an invitation for a wallet to leak the payment.
+    let (address, _) = ufvk
+        .default_address(UnifiedAddressRequest::SHIELDED)
+        .map_err(|e| anyhow!("could not derive an address: {e}"))?;
+
+    println!("# keep the phrase secret; it can spend. restore it into Zashi or Zingo");
+    println!("phrase  {}", mnemonic.phrase());
+    println!();
+    println!("# send funds here");
+    println!("address {}", address.encode(&network));
+    println!();
+    println!("# lets `scan` confirm the balance without the phrase");
+    println!(
+        "ufvk    {}",
+        ufvk.encode(&network)
+            .map_err(|e| anyhow!("could not encode the viewing key: {e}"))?
+    );
+    Ok(())
+}
+
 /// Decrypt transactions whose ids are already known.
 async fn read(network: Network, server: String, ufvk: &str, txids: &[String]) -> Result<()> {
     let ufvks = load_ufvk(&network, ufvk)?;
@@ -199,10 +243,11 @@ async fn scan(
     let ufvks = load_ufvk(&network, ufvk)?;
     let mut client = connect(&server).await?;
 
-    let to = match to {
-        Some(t) => t,
-        None => chain_tip(&mut client).await?,
-    };
+    let tip = chain_tip(&mut client).await?;
+    // Clamp rather than fail: asking for blocks past the tip is an easy mistake
+    // (or simply a range typed a minute too early), and the server rejects the
+    // whole stream when it happens.
+    let to = to.unwrap_or(tip).min(tip);
     if to < from {
         bail!("to-height {to} is below from-height {from}");
     }
@@ -239,7 +284,10 @@ async fn scan(
     {
         blocks_seen += 1;
         for ctx in block.vtx {
-            if ctx.outputs.is_empty() && ctx.actions.is_empty() {
+            // Every shielded pool must be checked here. Ironwood actions arrive
+            // in their own field, and a transaction carrying only those would
+            // otherwise be dropped before decryption is even attempted.
+            if ctx.outputs.is_empty() && ctx.actions.is_empty() && ctx.ironwood_actions.is_empty() {
                 continue; // nothing shielded in this transaction
             }
             // Already in protocol byte order, which is what GetTransaction
@@ -355,6 +403,23 @@ async fn fetch_and_decrypt(
             txid: txid.clone(),
             height,
             pool: "orchard",
+            value: note.value().inner(),
+            memo: render_memo(output.memo()),
+        });
+    }
+
+    // Ironwood is the Orchard-protocol pool introduced at NU6.3, and new
+    // Orchard-style payments now land here. It has its own accessor, separate
+    // from `orchard_outputs`. Skipping it is not a cosmetic gap: a verifier
+    // that misses a pool silently misses bids, which would break the claim that
+    // an organiser cannot hide a submission. Found by a live testnet payment
+    // that decrypted to nothing until this loop was added.
+    for output in decrypted.ironwood_outputs() {
+        let (note, _value_pool) = output.note();
+        found.push(FoundMemo {
+            txid: txid.clone(),
+            height,
+            pool: "ironwood",
             value: note.value().inner(),
             memo: render_memo(output.memo()),
         });
