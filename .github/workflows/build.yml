@@ -31,7 +31,19 @@ jobs:
       # These assert the security properties of the commitment scheme, not just
       # that the code runs. A failure here means sealed bids are not sealed.
       - name: Run self-tests
-        run: node selftest.ts
+        run: npm test
+
+      - name: Build and lint the frontend
+        run: npm run build && npm run lint
+
+      - name: Check reviewed release artifacts and licence notices
+        run: node scripts/check-release.ts
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: nextturn-frontend
+          path: dist/
+          if-no-files-found: error
 
   verifier:
     name: verifier (${{ matrix.target }})
@@ -49,6 +61,16 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+
+      - name: Check locked native licence inventory
+        run: node scripts/check-release.ts --licences-only
+
+      - name: Install locked app dependencies for comparison tests
+        run: npm ci
+
       - name: Cache cargo
         uses: actions/cache@v4
         with:
@@ -60,7 +82,19 @@ jobs:
 
       - name: Build
         working-directory: verifier
-        run: cargo build --release
+        run: cargo build --release --locked
+
+      - name: Round verification tests
+        working-directory: verifier
+        run: cargo test --locked
+
+      - name: App/native comparison (Unix)
+        if: runner.os != 'Windows'
+        run: node tests/cross-language.ts verifier/target/release/tender-verify
+
+      - name: App/native comparison (Windows)
+        if: runner.os == 'Windows'
+        run: node tests/cross-language.ts verifier/target/release/tender-verify.exe
 
       # A smoke test against a public testnet server, so a green build means the
       # binary actually talks to the chain rather than merely compiling.
@@ -74,4 +108,8 @@ jobs:
           path: |
             verifier/target/release/tender-verify
             verifier/target/release/tender-verify.exe
+            LICENSE
+            THIRD_PARTY_NOTICES.md
+            docs/licences/reviewed/native-licences.txt
+            docs/licences/reviewed/dependency-licences.json
           if-no-files-found: error

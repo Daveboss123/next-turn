@@ -1,0 +1,37 @@
+/* Illos free illustration. CSS is external to preserve production CSP. */
+
+@scope (svg.li-email) {
+:scope{--d:var(--illos-dark,0);--g:var(--illos-ground,#ffffff);--ink:var(--illos-ink,#2a2a2a);--accent:var(--illos-accent,#1daf9c);--mute:color-mix(in srgb,var(--ink) 45%,var(--g))}
+path,polygon,ellipse,circle{vector-effect:non-scaling-stroke;stroke-linecap:round;stroke-linejoin:round}
+.top{fill:color-mix(in srgb,var(--ink) calc(var(--d) * 10% + (1 - var(--d)) * 0%),var(--g))}
+.left{fill:color-mix(in srgb,var(--ink) calc(var(--d) * 5% + (1 - var(--d)) * 4%),var(--g))}
+.right{fill:color-mix(in srgb,var(--ink) calc(var(--d) * 2% + (1 - var(--d)) * 9%),var(--g))}
+.recess{fill:color-mix(in srgb,var(--ink) calc(var(--d) * 4% + (1 - var(--d)) * 6%),var(--g))}
+.ttop{fill:color-mix(in srgb,var(--accent) calc(var(--d) * 30% + (1 - var(--d)) * 10%),var(--g))}
+.tleft{fill:color-mix(in srgb,var(--accent) calc(var(--d) * 22% + (1 - var(--d)) * 18%),var(--g))}
+.tright{fill:color-mix(in srgb,var(--accent) calc(var(--d) * 16% + (1 - var(--d)) * 26%),var(--g))}
+.e,.m,.te,.tem{fill:none;stroke-width:1px}
+.e{stroke:var(--ink)}.m{stroke:var(--mute)}.te{stroke:var(--accent)}
+.tcell{fill:color-mix(in srgb,var(--accent) 75%,var(--g));stroke:var(--accent);stroke-width:1px}
+.tem{stroke:color-mix(in srgb,var(--accent) 45%,var(--g))}
+.d{stroke-dasharray:2 3}
+.dot{fill:var(--ink)}.tdot{fill:var(--accent)}.mdot{fill:var(--mute)}
+
+.fo{transform-box:fill-box;transform-origin:50% 50%;opacity:0}
+.fm0{animation:li-email_m0 3.3s linear}.fm0 .fo{animation:li-email_o0 3.3s linear}
+.fm1{animation:li-email_m1 3.3s linear}.fm1 .fo{animation:li-email_o1 3.3s linear}
+.fm2{animation:li-email_m2 3.3s linear}.fm2 .fo{animation:li-email_o2 3.3s linear}
+.bounce{animation:li-email_b 3.3s linear}
+.labb{animation:li-email_lab 3.3s linear}
+@keyframes li-email_m0{0%{transform:translate(-84px,48.5px)}7.576%{transform:translate(-84px,48.5px);animation-timing-function:cubic-bezier(0.77,0,0.175,1)}25.758%{transform:translate(0px,0px)}100%{transform:translate(0px,0px)}}
+@keyframes li-email_o0{0%{opacity:0;transform:scale(0.92)}7.576%{opacity:0;transform:scale(0.92);animation-timing-function:cubic-bezier(0.23,1,0.32,1)}14.242%{opacity:1;transform:scale(1)}26.97%{opacity:1;transform:scale(1);animation-timing-function:cubic-bezier(0.23,1,0.32,1)}36.667%{opacity:0;transform:scale(1)}100%{opacity:0;transform:scale(1)}}
+@keyframes li-email_m1{0%{transform:translate(-84px,48.5px)}16.667%{transform:translate(-84px,48.5px);animation-timing-function:cubic-bezier(0.77,0,0.175,1)}34.848%{transform:translate(0px,0px)}100%{transform:translate(0px,0px)}}
+@keyframes li-email_o1{0%{opacity:0;transform:scale(0.92)}16.667%{opacity:0;transform:scale(0.92);animation-timing-function:cubic-bezier(0.23,1,0.32,1)}23.333%{opacity:1;transform:scale(1)}36.061%{opacity:1;transform:scale(1);animation-timing-function:cubic-bezier(0.23,1,0.32,1)}45.758%{opacity:0;transform:scale(1)}100%{opacity:0;transform:scale(1)}}
+@keyframes li-email_m2{0%{transform:translate(-84px,48.5px)}25.758%{transform:translate(-84px,48.5px);animation-timing-function:cubic-bezier(0.77,0,0.175,1)}43.939%{transform:translate(0px,0px)}100%{transform:translate(0px,0px)}}
+@keyframes li-email_o2{0%{opacity:0;transform:scale(0.92)}25.758%{opacity:0;transform:scale(0.92);animation-timing-function:cubic-bezier(0.23,1,0.32,1)}32.424%{opacity:1;transform:scale(1)}45.152%{opacity:1;transform:scale(1);animation-timing-function:cubic-bezier(0.23,1,0.32,1)}54.848%{opacity:0;transform:scale(1)}100%{opacity:0;transform:scale(1)}}
+@keyframes li-email_b{0%{transform:translate(0px,0px)}40.909%{transform:translate(0px,0px);animation-timing-function:cubic-bezier(0.77,0,0.175,1)}56.061%{transform:translate(52.83px,-58.5px);animation-timing-function:cubic-bezier(0.23,1,0.32,1)}60.606%{transform:translate(40.7px,-48.5px);animation-timing-function:cubic-bezier(0.77,0,0.175,1)}77.273%{transform:translate(0px,0px);animation-timing-function:cubic-bezier(0.23,1,0.32,1)}79.394%{transform:translate(0px,-2.5px);animation-timing-function:cubic-bezier(0.77,0,0.175,1)}83.333%{transform:translate(0px,0px)}100%{transform:translate(0px,0px)}}
+@keyframes li-email_lab{0%{opacity:1}40.909%{opacity:1;animation-timing-function:cubic-bezier(0.23,1,0.32,1)}45.455%{opacity:0}83.333%{opacity:0;animation-timing-function:cubic-bezier(0.23,1,0.32,1)}90.909%{opacity:1}100%{opacity:1}}
+*{animation-iteration-count:1!important;animation-fill-mode:both!important;animation-play-state:var(--illos-play,running)!important}
+@media (prefers-reduced-motion: reduce){*{animation:none!important}}
+}
+

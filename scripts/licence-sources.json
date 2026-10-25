@@ -1,0 +1,52 @@
+{
+  "sources": [
+    {
+      "packages": ["blake2b_simd@1.0.5", "blake2s_simd@1.0.5"],
+      "repository": "https://github.com/oconnor663/blake2_simd",
+      "revision": "47714dc3c424e82213d7f2eb4a833e3843017be5",
+      "files": ["LICENSE"]
+    },
+    {
+      "packages": ["equihash@0.3.0"],
+      "repository": "https://github.com/zcash/librustzcash",
+      "revision": "eafd51ace8818198a21dbadfe921273e06d66999",
+      "files": ["COPYING.md", "LICENSE-APACHE", "LICENSE-MIT"]
+    },
+    {
+      "packages": ["ff_derive@0.14.0"],
+      "repository": "https://github.com/zkcrypto/ff",
+      "revision": "8cf62cd9c7a37ee8c4abb0b89308df8e873b21c3",
+      "files": ["LICENSE-APACHE", "LICENSE-MIT"]
+    },
+    {
+      "packages": ["groth16@0.2.0"],
+      "repository": "https://github.com/zkcrypto/bellman",
+      "revision": "276e738eca9bc834ad732b6169f7326a910c0469",
+      "files": ["COPYRIGHT", "LICENSE-APACHE", "LICENSE-MIT"]
+    },
+    {
+      "packages": ["halo2_gadgets@0.6.0", "halo2_poseidon@0.2.0", "halo2_proofs@0.4.0"],
+      "repository": "https://github.com/zcash/halo2",
+      "revision": "31bae80e65763594e455101911f3fc3f7da4ed21",
+      "files": ["COPYING.md", "LICENSE-APACHE", "LICENSE-MIT"]
+    },
+    {
+      "packages": ["tonic-prost@0.14.6", "tonic-prost-build@0.14.6"],
+      "repository": "https://github.com/hyperium/tonic",
+      "revision": "6cb6056b5a748bc5a29bd48f4602dbc4e552bb7d",
+      "files": ["LICENSE"]
+    },
+    {
+      "packages": ["uint@0.9.5"],
+      "repository": "https://github.com/paritytech/parity-common",
+      "revision": "c41d51df8a314150c46cbbff31f8140a35dfb02c",
+      "files": ["LICENSE-APACHE2", "LICENSE-MIT"]
+    },
+    {
+      "packages": ["zcash_script@0.6.0"],
+      "repository": "https://github.com/ZcashFoundation/zcash_script",
+      "revision": "8d2fc24b63a3f38fab25517e223e421b8f07aa68",
+      "files": ["LICENSE"]
+    }
+  ]
+}

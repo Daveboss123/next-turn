@@ -19,6 +19,7 @@ import {
   formatZecAmount,
   buildPaymentUri,
 } from './src/lib/zip321.ts';
+import { TEST_ADDRESS } from './tests/fixtures.ts';
 
 let passed = 0;
 let failed = 0;
@@ -139,7 +140,7 @@ check('one zatoshi keeps 8 dp', formatZecAmount(1n) === '0.00000001');
 check('amount has no trailing zeros', formatZecAmount(10_000_000n) === '0.1');
 
 const uri = buildPaymentUri(
-  'utest1zkd5k7w9m2x8vq4n6p3r7t5y8u2i4o6a8s0d2f4g6h8j0k2l4m6n8p0q2r4s6t8',
+  TEST_ADDRESS,
   100_000n,
   { kind: 'commit', tenderId: TENDER, commitmentHex: sealed.commitmentHex },
 );

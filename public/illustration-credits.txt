@@ -1,0 +1,11 @@
+NextTurn illustration and font credits
+
+Email delivery and Queue SVG illustrations: Illos.dev, Naved Alam.
+Adapted under the Illos free licence: https://illos.dev/license
+Free personal/commercial use and modification; do not redistribute as an asset pack or competing library.
+No Illos preview images/video are included. No remote illustration runtime is used.
+
+Manrope: SIL Open Font License 1.1. The complete licence is included in the project source.
+Font and illustration assets are served locally, not fetched from external hosts by the app.
+
+NextTurn's offer/pot charts and brand mark are original. Chart data is labelled as example data.

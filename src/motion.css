@@ -1,0 +1,8 @@
+/* Motion is triggered by IntersectionObserver, not on page load or each scroll. */
+.landing section[id] { scroll-margin-top: 32px; }
+.chart-bar { animation: none; }
+.pot-chart { transform-box: fill-box; transform-origin: center; }
+.chart-entrance { min-width: 0; }
+@media (prefers-reduced-motion: reduce) {
+  [data-scroll-entrance], [data-scroll-entrance] * { animation: none !important; transition: none !important; }
+}

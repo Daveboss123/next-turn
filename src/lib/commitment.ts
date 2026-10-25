@@ -16,7 +16,8 @@
  *    reproduce because of a rounding difference.
  *
  * 4. Nothing here touches the network, and no salt ever leaves the bidder's
- *    device. That is what keeps a server breach from unsealing bids.
+ *    device before reveal. At reveal the bidder intentionally discloses price
+ *    and salt. That is what keeps a server breach from unsealing bids early.
  */
 
 /** Prefix binding every commitment to this scheme and version. */
@@ -33,6 +34,7 @@ export interface SealedBid {
   saltHex: string;
   /** 64 lowercase hex characters (SHA-256). */
   commitmentHex: string;
+  claimPublicKeyHex?: string;
 }
 
 function toHex(bytes: Uint8Array): string {
@@ -78,12 +80,25 @@ export async function commit(
   tenderId: string,
   priceMinor: string,
   saltHex: string = generateSalt(),
+  rulesHash?: string,
+  claimPublicKeyHex?: string,
 ): Promise<SealedBid> {
   assertValidField('tenderId', tenderId, /^[0-9a-f]{16}$/);
   assertValidField('priceMinor', priceMinor, /^(0|[1-9][0-9]{0,17})$/);
   assertValidField('saltHex', saltHex, /^[0-9a-f]{64}$/);
 
-  const preimage = commitmentPreimage(tenderId, priceMinor, saltHex);
+  if (rulesHash !== undefined) assertValidField('rulesHash', rulesHash, /^[0-9a-f]{64}$/);
+  if (claimPublicKeyHex !== undefined) {
+    assertValidField('claimPublicKeyHex', claimPublicKeyHex, /^[0-9a-f]{64}$/);
+    if (rulesHash === undefined) throw new Error('A bid-proof key requires the complete round rules hash.');
+  }
+  // New rounds bind the full rules hash, not just a freely chosen round ID.
+  // Keep the legacy encoding available for the original sealing self-tests.
+  const preimage = claimPublicKeyHex !== undefined
+    ? `ZTENDER-ROUND-CLAIM-v1:${rulesHash}:${tenderId}:${priceMinor}:${saltHex}:${claimPublicKeyHex}`
+    : rulesHash === undefined
+    ? commitmentPreimage(tenderId, priceMinor, saltHex)
+    : `ZTENDER-ROUND-v1:${rulesHash}:${tenderId}:${priceMinor}:${saltHex}`;
   const digest = await crypto.subtle.digest(
     'SHA-256',
     new TextEncoder().encode(preimage),
@@ -94,6 +109,7 @@ export async function commit(
     priceMinor,
     saltHex,
     commitmentHex: toHex(new Uint8Array(digest)),
+    ...(claimPublicKeyHex === undefined ? {} : { claimPublicKeyHex }),
   };
 }
 

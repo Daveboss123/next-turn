@@ -2,8 +2,9 @@
 name = "tender-verify"
 version = "0.1.0"
 edition = "2024"
+license = "MIT"
 
-# Versions are pinned to exactly what zcash_client_backend 0.24 resolves to.
+# Versions are pinned to the zcash_client_backend 0.25 pre-release train.
 # These crates share types across their public APIs, so a mismatched minor
 # version produces trait errors that look unrelated to the real cause.
 # These are pre-release versions, deliberately.
@@ -40,6 +41,13 @@ zip32 = "0.3"
 bip0039 = "0.12"
 hex = "0.4"
 anyhow = "1"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+sha2 = "0.10"
+sapling = { package = "sapling-crypto", version = "=0.9.0" }
+orchard = "=0.16.0"
+zcash_note_encryption = "=0.5.1"
+ed25519-compact = { version = "=2.6.0", default-features = false, features = ["std"] }
 
 # Compiling librustzcash unoptimised makes note decryption painfully slow,
 # so keep a little optimisation even in debug builds.

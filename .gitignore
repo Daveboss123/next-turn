@@ -26,6 +26,13 @@ dist-ssr
 # Local secrets: generated seeds and viewing keys. Never commit.
 .local/
 
+# Private builder notes are not part of the public release.
+AGENTS.md
+docs/HANDOFF.md
+
+# Local hosting links/cache; never publish account linkage or credentials.
+.vercel/
+
 # Rust build output (kept outside OneDrive on this machine)
 verifier/target
 verifier-core/target
