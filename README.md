@@ -45,9 +45,11 @@ Implemented:
 
 **Not submission-ready:** a complete real-wallet testnet round, public hosted
 demo, final security review, real user feedback, video and submission remain.
-The current live checks confirm testnet connectivity and a funded Zingo wallet;
-they are not proof of a completed sealed-offer round. The approved next test is
-two offers operated by one person, not two real participants. Do not claim otherwise.
+The current live checks confirm testnet connectivity, a funded Zingo wallet and
+one valid rules anchor; they are not proof of a completed sealed-offer round.
+The full two-offer wallet round has been set aside for the quick submission path.
+The public practice experience is simulation, not two real participants or a real
+savings group's use. Do not claim otherwise.
 
 ## Run locally
 
@@ -235,6 +237,11 @@ track. Publishing and wallet use require David's approval.
 
 No real user feedback has been collected. Record consented observations in
 [the feedback log](docs/FEEDBACK.md); never invent validation or participation.
+
+The source repository was approved for publication and verified public on
+25 October 2026: https://github.com/Daveboss123/sealed-tender.
+Public demo deployment and the required two-minute video are still unfinished.
+This repository being public does not mean the hackathon entry is submitted.
 
 ## Continue later
 

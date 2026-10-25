@@ -28,7 +28,8 @@ URL and a two-minute video, even though its older unauthenticated checklist says
 
 - [ ] Project name and description (form limit: 2,000 characters).
 - [ ] Exactly one track: Private Markets.
-- [ ] Public repository URL; actual public visibility checked before submission.
+- [x] Public repository URL; verified public on 25 October:
+      https://github.com/Daveboss123/sealed-tender.
 - [ ] Working demo URL that judges can open and use without paying or installing a wallet.
 - [ ] Two-minute video URL.
 - [ ] Honest distinction between browser simulation, tested cryptographic logic,

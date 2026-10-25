@@ -13,7 +13,7 @@ David reviews and submits from his own eligible registered account/team.
 >
 > The browser creates salted, rules-bound commitments and a fresh bid-proof key. Members send fixed-value protocol memos from their own shielded Zcash wallets; there are no accounts, analytics, bid API or transaction relay. Offers open only in the declared block window. A dedicated incoming viewing key is disclosed after bidding closes, allowing a native checker to retrieve the full range, reject incomplete data and recompute the result. A fresh challenge proves control of the winning bid key, not a real-world identity or payout entitlement.
 >
-> Current demo: browser practice is explicitly simulated. Cryptographic logic, local ownership proofs, request builders and native retrieval are tested. One real testnet rules anchor has passed recipient, payment, source, memo and timing checks; a completed single-operator two-offer commit/open round is still pending. That planned test is not evidence of two participants or a real group's use.
+> Current demo: browser practice is explicitly simulated. Cryptographic logic, local ownership proofs, request builders and native retrieval are tested. One real testnet rules anchor has passed recipient, payment, source, memo and timing checks; the full two-offer commit/open round has not been completed and is omitted from the quick demo. No two-participant or real-group use is claimed.
 >
 > All opened values and salts, including losing offers, intentionally become public. Network metadata, frontend integrity, light-client server trust, eligibility, planted bids and payout enforcement remain limitations. The native checker is not full-node consensus validation. No real-money group or mainnet financial use is claimed.
 
@@ -25,7 +25,7 @@ the anchor alone. No genuine user feedback has been collected.
 
 | Field | Status |
 | --- | --- |
-| Repository | Currently private; publication requires separate approval and a privacy review. |
+| Repository | Public and verified: https://github.com/Daveboss123/sealed-tender. |
 | Working demo | Not deployed. Judges must be able to use practice without a wallet/account/payment. |
 | Two-minute video | Not recorded or uploaded. Keep private bid contents and recovery screens off-camera. |
 
