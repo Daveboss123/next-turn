@@ -4,8 +4,9 @@
 **Exactly one track:** Private Markets  
 **Deadline:** 28 October 2026, 23:59 UTC; aim to submit October 27.
 
-This document is a local draft, not an entry, public release or deployed demo.
-David reviews and submits from his own eligible registered account/team.
+This document is a submission draft, not a submitted hackathon entry. Source and
+the public practice demo are published with approval. David reviews and submits
+from his own eligible registered account/team.
 
 ## Description draft (under 2,000 characters)
 
@@ -21,13 +22,13 @@ Update the evidence paragraph only after actual bid/opening transactions and fin
 retrieval pass. Do not replace “pending” with “proven” based on a simulation or
 the anchor alone. No genuine user feedback has been collected.
 
-## Required URLs — pending approval/material
+## Required URLs
 
 | Field | Status |
 | --- | --- |
 | Repository | Public and verified: https://github.com/Daveboss123/sealed-tender. |
-| Working demo | Not deployed. Judges must be able to use practice without a wallet/account/payment. |
-| Two-minute video | Not recorded or uploaded. Keep private bid contents and recovery screens off-camera. |
+| Working demo | Public: https://nextturn-pro.vercel.app/. Practice needs no wallet/account/payment. |
+| Two-minute video | Practice-only scenes captured; encoding, final privacy review and a public video URL are still pending. No wallet backups or private JSON contents were captured. |
 
 MIT original-code licence is approved. Copied library/font/artwork notices retain
 their own terms. Build/artifact checks are not a full legal or security audit.
@@ -52,12 +53,13 @@ an invented participant count. Exactly one track: Private Markets.
 - [ ] David confirms eligibility and registration; creates/joins the required team.
 - [ ] Privacy review of the exact source/public evidence intended for release.
 - [ ] Complete real-wallet round, or retain an explicit unfinished-live-flow disclosure.
-- [ ] Approve the public repository and verify its actual visibility.
-- [ ] Approve static hosting of `dist/` only; verify equivalent CSP/security headers.
+- [x] Approve the public repository and verify its actual visibility.
+- [x] Approve static hosting of `dist/` only; verify equivalent CSP/security headers.
 - [ ] Working public demo tested from a fresh browser.
 - [ ] Two-minute video recorded, reviewed for leaks and uploaded with approval.
 - [ ] Review the final description, licences/notices and exact URL fields.
 - [ ] David submits through the official form and checks its confirmation.
 
-See `docs/HACKATHON.md`. A saved draft is not a submitted project. No assistant
-submission, publication, deployment or wallet spending is authorised.
+See `docs/HACKATHON.md`. A saved draft is not a submitted project. Publishing the
+source and static demo was approved. David must explicitly submit the entry;
+no automatic wallet spending or mainnet use is authorised.

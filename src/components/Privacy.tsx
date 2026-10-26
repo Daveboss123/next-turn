@@ -2,7 +2,7 @@ import { Icon } from './Icon.tsx';
 
 export function Privacy() {
   return <section>
-    <div className="page-heading"><h1>Privacy and safety.</h1><p>Your offer stays hidden until you open it. Opened amounts can be checked publicly, but the app never adds your name to a bid memo. Here is what that does—and doesn’t—protect.</p></div>
+    <div className="page-heading"><h1>Privacy and safety.</h1><p>Your offer stays hidden until you open it. Opened amounts can be checked publicly, but the app never adds your name to a bid memo. Here is what the app protects and where its limits are.</p></div>
     <div className="privacy-grid">
       <div className="card"><div className="card-icon"><Icon name="lock" /></div><h2>Before the deadline</h2><p>The organiser can see that offers arrived, their blocks and the fixed payment amount. They cannot derive correctly salted offer amounts from the commitments. Competitors without the viewing key cannot read the notes.</p></div>
       <div className="card"><div className="card-icon"><Icon name="shield" /></div><h2>When offers are opened</h2><p>Publishing the incoming viewing key makes every opened offer readable, including losing amounts and salts. No names or sender fields are added to the memos. Outside information or identifying patterns can still connect activity to a person.</p></div>

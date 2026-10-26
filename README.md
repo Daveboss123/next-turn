@@ -11,7 +11,10 @@ preserved in [project history](docs/PROCUREMENT-ORIGIN.md).
 Previously called Sealed Tender. The checkout path, native `tender-verify`
 command and existing file/protocol formats keep their names for compatibility.
 
-## Current checkpoint — 25 October 2026
+**Public practice demo:** https://nextturn-pro.vercel.app/  
+**Source:** https://github.com/Daveboss123/sealed-tender
+
+## Current checkpoint: 26 October 2026
 
 Implemented:
 
@@ -43,8 +46,9 @@ Implemented:
 - No accounts, analytics, remote fonts, bid API or transaction relay. Production
   CSP blocks application network connections.
 
-**Not submission-ready:** a complete real-wallet testnet round, public hosted
-demo, final security review, real user feedback, video and submission remain.
+**Not submission-ready:** the two-minute video and David's registration/team,
+eligibility and final submission confirmation remain. A dedicated security review
+and genuine user feedback have not been completed.
 The current live checks confirm testnet connectivity, a funded Zingo wallet and
 one valid rules anchor; they are not proof of a completed sealed-offer round.
 The full two-offer wallet round has been set aside for the quick submission path.
@@ -131,6 +135,7 @@ Production file/signature/wallet-request flow checks:
 
 ```powershell
 node scripts/check-flows.mjs http://127.0.0.1:4173/
+node scripts/check-flows.mjs https://nextturn-pro.vercel.app/
 node scripts/check-local-files.mjs
 node scripts/check-release.ts
 ```
@@ -240,7 +245,8 @@ No real user feedback has been collected. Record consented observations in
 
 The source repository was approved for publication and verified public on
 25 October 2026: https://github.com/Daveboss123/sealed-tender.
-Public demo deployment and the required two-minute video are still unfinished.
+The public practice demo is deployed at https://nextturn-pro.vercel.app/.
+The required two-minute video is still unfinished.
 This repository being public does not mean the hackathon entry is submitted.
 
 ## Continue later
@@ -259,5 +265,5 @@ texts are under `docs/licences/reviewed/`; the frontend build carries project,
 browser-library and font notices. Native CI artifacts are configured to include
 their notice bundle. This is a notice inventory, not a completed legal audit.
 
-The local description/video plan is in `docs/SUBMISSION.md`. It is not submitted,
-and demo hosting/repository publication still require separate approval.
+The description/video plan is in `docs/SUBMISSION.md`. Source and static demo
+publication were approved; no hackathon submission or wallet spending is automatic.

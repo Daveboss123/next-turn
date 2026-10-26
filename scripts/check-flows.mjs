@@ -10,8 +10,10 @@ import { TEST_ADDRESS } from '../tests/fixtures.ts';
 
 const base = process.argv[2] ?? 'http://127.0.0.1:4173/';
 const parsed = new URL(base);
-if (parsed.protocol !== 'http:' || parsed.hostname !== '127.0.0.1' || parsed.pathname !== '/' || parsed.search || parsed.hash) {
-  throw new Error('Use the local production preview URL without query strings or fragments.');
+const localPreview = parsed.protocol === 'http:' && parsed.hostname === '127.0.0.1';
+const approvedDemo = parsed.href === 'https://nextturn-pro.vercel.app/';
+if ((!localPreview && !approvedDemo) || parsed.username || parsed.password || parsed.pathname !== '/' || parsed.search || parsed.hash) {
+  throw new Error('Use the local production preview or approved public demo URL without query strings or fragments.');
 }
 const manifest = { ...await createManifest({ version: 2, tenderId: 'a'.repeat(16), network: 'test',
   address: TEST_ADDRESS, title: 'Generated browser-check round', currency: 'NGN', potMinor: '60000000',
@@ -150,6 +152,13 @@ try {
   await command('Page.navigate', { url: base }, sessionId);
   await wait(`document.querySelector('.nextturn-hero')`);
   await check(`document.title.startsWith('NextTurn') && document.querySelector('meta[http-equiv="Content-Security-Policy"]').content.includes("connect-src 'none'")`, 'Production branding and no-connect CSP are present');
+  await check(`![document.title, document.body.textContent].some(text=>text.includes(String.fromCharCode(0x2014)))`, 'The landing copy and page title contain no em dashes');
+  for (const width of [1280, 768, 390, 360]) {
+    await command('Emulation.setDeviceMetricsOverride', { width, height: 900, deviceScaleFactor: 1, mobile: width < 600 }, sessionId);
+    const fits = await evaluate(`(async()=>{await document.fonts.ready;await new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)));return innerWidth===${width}&&document.documentElement.scrollWidth<=document.documentElement.clientWidth+1;})()`);
+    assert(fits, `Landing copy fits the ${width}px viewport`);
+  }
+  await command('Emulation.setDeviceMetricsOverride', { width: 1280, height: 900, deviceScaleFactor: 1, mobile: false }, sessionId);
   await click('Open app', 'a');
   await wait(`document.querySelector('#practice-discount')`);
   await click('Place practice offer');
@@ -170,6 +179,7 @@ try {
   await evaluate(`document.querySelector('input[aria-label="I saved my bid file"]').click()`);
   await check(`Boolean(__nextturnCheck.memory.practiceBid.claimPrivateKeyHex) && __nextturnCheck.memory.practiceBid.claimPublicKeyHex.length===64`, 'New practice bids have a fresh local ownership key');
   await route('app/privacy', '.privacy-grid');
+  await check(`!document.body.textContent.includes(String.fromCharCode(0x2014))`, 'The privacy page contains no em dashes');
   await route('app/practice', '#practice-round');
   await check(`!${button('Close bidding')}.disabled`, 'The download acknowledgement survives app navigation without storage');
   await click('Close bidding');
@@ -357,7 +367,7 @@ try {
   await check(`__nextturnCheck.realPublicDownloadConnected===true`, 'The real download link is attached when the browser processes its click');
   await check(`(()=>{const c=__nextturnCheck;const secret=c.memory.walletBid.claimPrivateKeyHex;return !document.body.textContent.includes(secret)&&localStorage.length===0&&sessionStorage.length===0&&c.storageWrites===0&&c.dbOpens===0&&document.cookie==='';})()`, 'No private key is displayed and no browser storage, cookies or IndexedDB is used');
   await check(`location.search==='' && location.hash==='#app/testnet'`, 'Application URLs contain only screen names, never bid data');
-  assert(requests.every(({ url }) => !url.startsWith('http') || (new URL(url).origin === parsed.origin && !new URL(url).search)), 'The flow makes only local static requests without data-bearing query strings');
+  assert(requests.every(({ url }) => !url.startsWith('http') || (new URL(url).origin === parsed.origin && !new URL(url).search)), 'The flow makes only same-origin static requests without data-bearing query strings');
   assert(!requests.some(({ type }) => ['Fetch', 'XHR', 'WebSocket'].includes(type)), 'The app uses no bid API, relay or network connection during the flow');
   assert(runtimeErrors === 0, 'The completed flow has no uncaught page errors');
   await command('Browser.close');
@@ -365,4 +375,4 @@ try {
   socket?.close();
   child.kill(); // Only the isolated process created by this script.
 }
-console.log(JSON.stringify({ passed: checks.length, checks, note: 'Generated fixtures only; private downloads stayed in browser memory. No wallet sends or real-chain round was tested.' }, null, 2));
+console.log(JSON.stringify({ base, passed: checks.length, checks, note: 'Generated fixtures only; private downloads stayed in browser memory. No wallet sends or real-chain round was tested.' }, null, 2));

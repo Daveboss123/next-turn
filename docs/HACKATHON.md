@@ -30,7 +30,9 @@ URL and a two-minute video, even though its older unauthenticated checklist says
 - [ ] Exactly one track: Private Markets.
 - [x] Public repository URL; verified public on 25 October:
       https://github.com/Daveboss123/sealed-tender.
-- [ ] Working demo URL that judges can open and use without paying or installing a wallet.
+- [x] Public demo deployed with approval: https://nextturn-pro.vercel.app/.
+      An unauthenticated HTTP check on 26 October returned 200 with the production
+      no-connect CSP and no-referrer policy. Practice needs no account/payment/wallet.
 - [ ] Two-minute video URL.
 - [ ] Honest distinction between browser simulation, tested cryptographic logic,
       live chain reading, and a fully demonstrated real-wallet commit/reveal round.

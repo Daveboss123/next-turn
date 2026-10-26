@@ -61,7 +61,7 @@ export function Landing() {
 
       <section className="landing-section" id="how-it-works" aria-labelledby="how-title">
         <ScrollEntrance>
-        <div className="landing-section-heading"><h2 id="how-title">The group sets the round.<br />Members choose their offers.</h2><p>You keep collecting contributions and paying members as usual. NextTurn handles the bids and the result—not the money.</p></div>
+        <div className="landing-section-heading"><h2 id="how-title">The group sets the round.<br />Members choose their offers.</h2><p>You keep collecting contributions and paying members as usual. NextTurn handles the bids and the result, not the money.</p></div>
         <div className="landing-steps">
           <article><span className="step-number">01</span><h3>Agree on the rules.</h3><p>Set the pot, maximum offer and deadline before anyone bids.</p></article>
           <article><span className="step-number">02</span><h3>Place a private offer.</h3><p>Choose how much you’d leave for the others. Keep your bid file so you can open the offer later.</p></article>
@@ -77,7 +77,7 @@ export function Landing() {
       </section>
 
       <section className="landing-section landing-privacy" id="privacy" aria-labelledby="privacy-title">
-        <div className="landing-section-heading"><h2 id="privacy-title">What stays private—and what doesn’t.</h2><p>Offer amounts are hidden before opening. Names are not added to bid memos. That doesn’t hide every trace of activity.</p></div>
+        <div className="landing-section-heading"><h2 id="privacy-title">What stays private and what doesn’t.</h2><p>Offer amounts are hidden before opening. Names are not added to bid memos. That doesn’t hide every trace of activity.</p></div>
         <div className="landing-faq">
           <details><summary>What can the organiser see before the deadline?<span>+</span></summary><p>They can see that a bid arrived, its block and the fixed testnet payment. Properly salted commitments do not reveal its amount. Voluntarily opening early can expose that amount; the checker rejects the early opening.</p></details>
           <details><summary>What becomes public when offers are opened?<span>+</span></summary><p>All opened amounts become readable after the incoming viewing key is published, including losing offers and salts. The protocol does not add bidder names or sender fields to the memos.</p></details>
