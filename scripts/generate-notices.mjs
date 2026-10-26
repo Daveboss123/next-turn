@@ -128,8 +128,9 @@ function bundle(ecosystem) {
 mkdirSync(output);
 writeFileSync(join(output, 'dependency-licences.json'), `${JSON.stringify({
   format: 'nextturn-dependency-licences-v1',
-  npmLockSha256: hash(readFileSync(join(root, 'package-lock.json'))),
-  cargoLockSha256: hash(readFileSync(join(root, 'verifier/Cargo.lock'))),
+  lockHashNormalization: 'utf8-lf',
+  npmLockSha256: hash(readFileSync(join(root, 'package-lock.json'), 'utf8').replaceAll('\r\n', '\n')),
+  cargoLockSha256: hash(readFileSync(join(root, 'verifier/Cargo.lock'), 'utf8').replaceAll('\r\n', '\n')),
   packages, missingLicenceMetadata: missingMetadata, missingLicenceTexts: missingTexts, notice,
 }, null, 2)}\n`, { flag: 'wx' });
 writeFileSync(join(output, 'npm-licences.txt'), bundle('npm-runtime'), { flag: 'wx' });

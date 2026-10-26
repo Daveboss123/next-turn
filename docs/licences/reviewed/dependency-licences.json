@@ -1,6 +1,7 @@
 {
   "format": "nextturn-dependency-licences-v1",
-  "npmLockSha256": "2d4acc7b1c2508ffe1fc1d2a05aaa7dbbd951ef77d6ee4bf8029d32d5f49bedc",
+  "lockHashNormalization": "utf8-lf",
+  "npmLockSha256": "e5686815de21f40e7ba1d35d94a0248f58f837a0e3be96bc7a43ee9fbedc2a38",
   "cargoLockSha256": "d988f7583ffbfd5c06b494830dab5d269a3e751e6a7b78371bd6443c376d3114",
   "packages": [
     {

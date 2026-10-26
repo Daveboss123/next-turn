@@ -61,7 +61,7 @@ test('stale or incomplete licence inventories block a release build', (t) => {
   writeFileSync(join(root, 'package-lock.json'), 'PUBLIC NPM CANARY');
   writeFileSync(join(root, 'verifier/Cargo.lock'), 'PUBLIC CARGO CANARY');
   const hash = (text: string) => createHash('sha256').update(text).digest('hex');
-  const inventory = { format: 'nextturn-dependency-licences-v1', npmLockSha256: hash('PUBLIC NPM CANARY'),
+  const inventory = { format: 'nextturn-dependency-licences-v1', lockHashNormalization: 'utf8-lf', npmLockSha256: hash('PUBLIC NPM CANARY'),
     cargoLockSha256: hash('PUBLIC CARGO CANARY'), missingLicenceMetadata: [], missingLicenceTexts: [] as string[] };
   const path = join(directory, 'dependency-licences.json');
   writeFileSync(path, JSON.stringify(inventory));
@@ -71,6 +71,24 @@ test('stale or incomplete licence inventories block a release build', (t) => {
   assert.throws(() => assertCurrentLicenceInventory(root));
   inventory.missingLicenceTexts = []; writeFileSync(path, JSON.stringify(inventory));
   writeFileSync(join(root, 'package-lock.json'), 'CHANGED PUBLIC NPM CANARY');
+  assert.throws(() => assertCurrentLicenceInventory(root));
+});
+
+test('licence lock hashes accept Git LF and Windows CRLF without ignoring dependency changes', (t) => {
+  const { root } = fixture(t);
+  const directory = join(root, 'docs/licences/reviewed'); mkdirSync(directory, { recursive: true }); mkdirSync(join(root, 'verifier'));
+  const npm = 'PUBLIC NPM\nLOCK CANARY\n', cargo = 'PUBLIC CARGO\nLOCK CANARY\n';
+  const hash = (text: string) => createHash('sha256').update(text).digest('hex');
+  writeFileSync(join(root, 'package-lock.json'), npm.replaceAll('\n', '\r\n'));
+  writeFileSync(join(root, 'verifier/Cargo.lock'), cargo.replaceAll('\n', '\r\n'));
+  writeFileSync(join(directory, 'dependency-licences.json'), JSON.stringify({ format: 'nextturn-dependency-licences-v1',
+    lockHashNormalization: 'utf8-lf', npmLockSha256: hash(npm), cargoLockSha256: hash(cargo), missingLicenceMetadata: [], missingLicenceTexts: [] }));
+  for (const name of ['npm-licences.txt', 'native-licences.txt']) writeFileSync(join(directory, name), 'PUBLIC LICENCE CANARY');
+  assert.doesNotThrow(() => assertCurrentLicenceInventory(root));
+  writeFileSync(join(root, 'package-lock.json'), npm);
+  writeFileSync(join(root, 'verifier/Cargo.lock'), cargo);
+  assert.doesNotThrow(() => assertCurrentLicenceInventory(root));
+  writeFileSync(join(root, 'package-lock.json'), npm + 'CHANGED DEPENDENCY');
   assert.throws(() => assertCurrentLicenceInventory(root));
 });
 

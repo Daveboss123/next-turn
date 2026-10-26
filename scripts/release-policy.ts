@@ -36,8 +36,11 @@ export function assertCurrentLicenceInventory(root: string): void {
     }
   }
   const inventory = JSON.parse(readFileSync(join(directory, 'dependency-licences.json'), 'utf8'));
-  const hash = (path: string) => createHash('sha256').update(readFileSync(path)).digest('hex');
+  // Git normalises Windows CRLF text during commit/checkout. The dependency
+  // content must match on Linux too; do not mistake line endings for changes.
+  const hash = (path: string) => createHash('sha256').update(readFileSync(path, 'utf8').replaceAll('\r\n', '\n')).digest('hex');
   if (inventory.format !== 'nextturn-dependency-licences-v1'
+    || inventory.lockHashNormalization !== 'utf8-lf'
     || inventory.npmLockSha256 !== hash(join(root, 'package-lock.json'))
     || inventory.cargoLockSha256 !== hash(join(root, 'verifier/Cargo.lock'))
     || !Array.isArray(inventory.missingLicenceMetadata) || inventory.missingLicenceMetadata.length !== 0
