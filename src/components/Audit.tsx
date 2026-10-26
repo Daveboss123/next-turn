@@ -25,8 +25,9 @@ export function Audit({ onPractice }: { onPractice: () => void }) {
   }
   return <section>
     <div className="page-heading">
+      <span className="eyebrow">Result check</span>
       <h1>Check your group’s result.</h1>
-      <p>Open the result file your group shared. We’ll compare the offers with the round’s rules and check which one wins.</p>
+      <p>Open the result file your group shared. We’ll compare the opened offers with the round’s rules and check which one wins.</p>
     </div>
     <div className="notice"><Icon name="alert" /><span><strong>This checks the file, not the whole chain.</strong> To confirm that no bids were left out, use the independent checker below. No wallet or payment is needed.</span></div>
     <ErrorNotice message={error} />

@@ -11,8 +11,8 @@ export function ExampleOfferChart() {
   const description = useId();
   const bottom = 196;
   return <figure className="example-chart-card">
-    <div className="chart-card-heading"><h3>Compare the opened offers.</h3><span className="mini-pill">Example round</span></div>
-    <p>The highest offer wins, as long as it’s within the group’s limit.</p>
+    <div className="chart-card-heading"><h3>The highest valid offer wins.</h3><span className="mini-pill">Example round</span></div>
+    <p>Three opened offers from a sample round, all within the group’s limit.</p>
     <div ref={plot} className="chart-entrance" data-scroll-entrance="offers">
     <svg className="offer-chart" viewBox="0 0 440 250" role="img" aria-labelledby={`${title} ${description}`}>
       <title id={title}>Three example offers in Nigerian naira</title>
@@ -32,7 +32,7 @@ export function ExampleOfferChart() {
       })}
     </svg>
     </div>
-    <figcaption>NGN 40,000 · NGN 55,000 · <strong>NGN 65,000 wins</strong>. Sample offers after opening, not live activity.</figcaption>
+    <figcaption>Sample offers after opening: NGN 40,000, NGN 55,000, and <strong>NGN 65,000 wins</strong>. Not live activity.</figcaption>
   </figure>;
 }
 
@@ -43,7 +43,7 @@ export function ExamplePotChart() {
   const winnerPercent = 535_000 / 600_000 * 100;
   return <figure className="example-chart-card">
     <div className="chart-card-heading"><h3>Where the pot would go.</h3><span className="mini-pill">Example payout</span></div>
-    <p>A NGN 65,000 offer leaves NGN 535,000 for the winner.</p>
+    <p>A NGN 65,000 winning offer leaves NGN 535,000 for the winner.</p>
     <div ref={plot} className="pot-chart-layout" data-scroll-entrance="pot">
       <svg className="pot-chart" viewBox="0 0 180 180" role="img" aria-labelledby={`${title} ${description}`}>
         <title id={title}>Example split of a 600,000 naira savings pot</title>

@@ -30,6 +30,9 @@ dist-ssr
 AGENTS.md
 docs/HANDOFF.md
 
+# Local browser QA runs; never publish screenshots or downloaded test files.
+.playwright-mcp/
+
 # Local hosting links/cache; never publish account linkage or credentials.
 .vercel/
 

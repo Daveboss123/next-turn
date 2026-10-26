@@ -45,13 +45,13 @@ export function Practice({ round, onChange, receiptSaved, onReceiptSaved }: { ro
     if (losing) setTampered(await auditRound({ ...practiceBundle(round), declaredWinnerCommitment: losing.commitmentHex }));
   }
   return <section className="practice-section" id="practice-round" aria-labelledby="practice-title">
-    <div className="section-heading practice-page-heading"><div><span className="eyebrow">Sample savings group</span><h1 id="practice-title">Your practice round</h1><p className="section-subtitle">Choose an offer, open it after close, and check the result.</p></div><span className="mode-pill"><span className="status-dot" />Practice only</span></div>
+    <div className="section-heading practice-page-heading"><div><span className="eyebrow">Practice workspace</span><h1 id="practice-title">Your practice round</h1><p className="section-subtitle">Make an offer, save your bid file, open it after close, and check the result.</p></div><span className="mode-pill"><span className="status-dot" />Practice only</span></div>
     <div className="notice notice-practice"><Icon name="shield" size={18} /><span><strong>This is a practice round.</strong> The other offers are examples. Nothing is sent or paid, and refreshing clears this round.</span></div>
-    <div className="round-stats"><div><span>Available pot</span><strong>{formatMoney(rules.potMinor, rules.currency)}</strong></div><div><span>Group members</span><strong>{rules.memberCount}</strong></div><div><span>Maximum offer</span><strong>{formatMoney(discountCapMinor(rules), rules.currency)}<small>{rules.discountCapBps / 100}% of the pot</small></strong></div></div>
-    <div className="stepper" aria-label="Round progress">{['Make an offer', 'Save your bid file', 'Open your offer', 'Check the result'].map((step, i) => <div className={`step ${i === stage ? 'step-current' : i < stage ? 'step-done' : ''}`} key={step}><span>{i < stage ? <Icon name="check" size={13} /> : `0${i + 1}`}</span><p>{step}</p></div>)}</div>
+    <div className="round-stats"><div><span>Pot for this round</span><strong>{formatMoney(rules.potMinor, rules.currency)}</strong></div><div><span>Members</span><strong>{rules.memberCount}</strong></div><div><span>Highest offer allowed</span><strong>{formatMoney(discountCapMinor(rules), rules.currency)}<small>{rules.discountCapBps / 100}% of the pot</small></strong></div></div>
+    <div className="stepper" aria-label="Round progress">{['Make an offer', 'Save bid file', 'Open offer', 'Check result'].map((step, i) => <div className={`step ${i === stage ? 'step-current' : i < stage ? 'step-done' : ''}`} key={step}><span>{i < stage ? <Icon name="check" size={13} /> : `0${i + 1}`}</span><p>{step}</p></div>)}</div>
     <div className="round-workspace">
       <div className="card bid-card">
-        <div className="card-heading"><div className="card-icon"><Icon name={phase === 'complete' ? 'check' : 'lock'} /></div><div><h3>{phase === 'complete' ? 'The round is complete.' : phase === 'reveal' ? 'Bidding has closed.' : round.receipt ? 'Your offer is recorded.' : 'What would you leave for the group?'}</h3><p>{phase === 'bidding' ? 'Offer to take less than the full pot. The highest offer within the limit wins.' : phase === 'reveal' ? 'Open the offer you saved so it can be compared with the others.' : 'Your result and the opened offers are shown below.'}</p></div></div>
+        <div className="card-heading"><div className="card-icon"><Icon name={phase === 'complete' ? 'check' : 'lock'} /></div><div><h3>{phase === 'complete' ? 'The round is complete.' : phase === 'reveal' ? 'Bidding has closed.' : round.receipt ? 'Your offer is sealed.' : 'What would you leave for the group?'}</h3><p>{phase === 'bidding' ? 'Offer to take less than the full pot. The highest offer within the limit wins.' : phase === 'reveal' ? 'Open the offer you saved so it can be compared with the others.' : 'The result and every opened offer are below.'}</p></div></div>
         <ErrorNotice message={error} />
         {phase === 'bidding' && !round.receipt && <form onSubmit={(event) => { event.preventDefault(); void seal(); }}>
           <label className="field-label" htmlFor="practice-discount">Amount you’d leave for the other members</label>
@@ -62,11 +62,11 @@ export function Practice({ round, onChange, receiptSaved, onReceiptSaved }: { ro
           <div className="privacy-footnote"><Icon name="lock" size={14} />Your offer amount stays hidden until you open it.</div>
         </form>}
         {phase === 'bidding' && round.receipt && <>
-          <div className="sealed-confirmation"><span className="mini-pill"><Icon name="check" size={12} />Offer recorded</span><p>You offered <strong>{formatMoney(round.receipt.priceMinor, rules.currency)}</strong>. Other members can’t see this amount yet.</p></div>
+          <div className="sealed-confirmation"><span className="mini-pill"><Icon name="check" size={12} />Offer sealed</span><p>You offered <strong>{formatMoney(round.receipt.priceMinor, rules.currency)}</strong>. The other members cannot see this amount yet.</p></div>
           <ReceiptDownload receipt={round.receipt} onSaved={onReceiptSaved} saved={receiptSaved} />
-          {receiptSaved && <p className="saved-file-status" role="status"><Icon name="check" size={15} />Bid file saved or confirmed. Keep the file until your offer is opened.</p>}
+          {receiptSaved && <p className="saved-file-status" role="status"><Icon name="check" size={15} />Bid file saved. Keep it private until you need to open your offer.</p>}
           <button className="button button-primary button-full" type="button" disabled={busy || !receiptSaved} onClick={() => void run(() => closePracticeBidding(round))}>Close bidding<Icon name="arrow" size={17} /></button>
-          <p className="field-hint">Save your bid file first. For this practice round, you can close bidding yourself.</p>
+          <p className="field-hint">Save your bid file first. In this practice round, you can close bidding yourself.</p>
         </>}
         {phase === 'reveal' && !round.revealed && <>
           <div className="reveal-value"><span>Your saved offer</span><strong>{round.receipt ? formatMoney(round.receipt.priceMinor, rules.currency) : 'No offer saved'}</strong></div>
@@ -74,11 +74,11 @@ export function Practice({ round, onChange, receiptSaved, onReceiptSaved }: { ro
           <button className="button button-primary button-full" type="button" disabled={busy || !round.receipt} onClick={() => void run(() => revealPracticeBid(round))}>Open my offer<Icon name="arrow" size={17} /></button>
         </>}
         {phase === 'reveal' && round.revealed && <>
-          <div className="notice notice-success"><Icon name="check" /><span>Your opened offer matches the one you placed. It hasn’t been changed.</span></div>
+          <div className="notice notice-success"><Icon name="check" /><span>Your opened offer matches the one you placed. It has not been changed.</span></div>
           <button className="button button-primary button-full" type="button" disabled={busy} onClick={() => void run(() => finishPracticeRound(round))}>Show the result<Icon name="arrow" size={17} /></button>
         </>}
         {phase === 'complete' && result && <>
-          <p className="result-intro">The app checked the offers again to find the winner. You can also try announcing the wrong winner and see whether it catches the mistake.</p>
+          <p className="result-intro">The app checked every offer again to find the winner. You can also announce the wrong winner and see the check reject it.</p>
           <div className="button-row"><button className="button button-secondary" type="button" onClick={demonstrateTampering}>Try the wrong winner<Icon name="alert" size={16} /></button><button className="button button-quiet" type="button" onClick={() => downloadJson(`nextturn-public-practice-${rules.tenderId}.json`, practiceBundle(round))}><Icon name="download" size={16} />Download result file</button></div>
           <p className="field-hint">This result file contains the opened sample offers. It is separate from your private bid file.</p>
         </>}
@@ -87,11 +87,11 @@ export function Practice({ round, onChange, receiptSaved, onReceiptSaved }: { ro
       <aside className="card evidence-card">
         <div className="card-topline"><span className="eyebrow">This round</span><span className="mini-pill">{commitments.length} offers received</span></div>
         <div className={`offers-summary ${phase !== 'bidding' ? 'offers-summary-text-only' : ''}`}>
-          <div className="offers-description"><h3>{phase === 'bidding' ? 'Other offers stay private.' : 'Offers are ready to compare.'}</h3><p>{phase === 'bidding' ? 'You can see that offers were received, but not what anyone offered. Amounts are only opened after bidding closes.' : 'Each opened offer is checked against the one that was placed earlier. An offer can’t be changed to beat someone else.'}</p></div>
+          <div className="offers-description"><h3>{phase === 'bidding' ? 'Other offers stay private.' : 'Offers are ready to compare.'}</h3><p>{phase === 'bidding' ? 'You can see that offers arrived, but not what anyone offered. Amounts open only after bidding closes.' : 'Each opened offer is checked against the one placed earlier. An offer cannot be changed to beat someone else.'}</p></div>
           {phase === 'bidding' && <OfferIllustration variant="queue" compact />}
         </div>
-        <div className="envelope-list">{commitments.map((record, i) => <div className="envelope" key={record.txid}><span className="envelope-number">0{i + 1}</span><Icon name="lock" size={15} /><span className="offer-row-label">Offer {i + 1}</span><span>{phase === 'bidding' ? 'Amount hidden' : 'Recorded'}</span></div>)}</div>
-        <div className="round-status"><span className="status-dot" /><strong>{phase === 'bidding' ? 'Bidding is open' : phase === 'reveal' ? 'Bidding closed · opening offers' : 'Round complete'}</strong><p>In a real round, the deadline is fixed before anyone bids. You can’t change the rules after seeing the offers.</p></div>
+        <div className="envelope-list">{commitments.map((record, i) => <div className="envelope" key={record.txid}><span className="envelope-number">0{i + 1}</span><Icon name="lock" size={15} /><span className="offer-row-label">Offer {i + 1}</span><span>{phase === 'bidding' ? 'Amount sealed' : 'Opened'}</span></div>)}</div>
+        <div className="round-status"><span className="status-dot" /><strong>{phase === 'bidding' ? 'Bidding is open' : phase === 'reveal' ? 'Bidding closed, opening offers' : 'Round complete'}</strong><p>In a real round, the deadline is fixed before anyone bids. The rules cannot be changed after seeing the offers.</p></div>
         <RulesDetails manifest={round.manifest} />
       </aside>
     </div>

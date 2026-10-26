@@ -2,15 +2,15 @@ import { Icon } from './Icon.tsx';
 
 export function Privacy() {
   return <section>
-    <div className="page-heading"><h1>Privacy and safety.</h1><p>Your offer stays hidden until you open it. Opened amounts can be checked publicly, but the app never adds your name to a bid memo. Here is what the app protects and where its limits are.</p></div>
+    <div className="page-heading"><span className="eyebrow">Privacy and limits</span><h1>Privacy and safety.</h1><p>Your offer stays hidden until you open it. Once offers are opened, anyone with the round data can read the amounts. The app never adds your name to a bid memo. Here is what it protects, and where the limits are.</p></div>
     <div className="privacy-grid">
-      <div className="card"><div className="card-icon"><Icon name="lock" /></div><h2>Before the deadline</h2><p>The organiser can see that offers arrived, their blocks and the fixed payment amount. They cannot derive correctly salted offer amounts from the commitments. Competitors without the viewing key cannot read the notes.</p></div>
-      <div className="card"><div className="card-icon"><Icon name="shield" /></div><h2>When offers are opened</h2><p>Publishing the incoming viewing key makes every opened offer readable, including losing amounts and salts. No names or sender fields are added to the memos. Outside information or identifying patterns can still connect activity to a person.</p></div>
-      <div className="card"><div className="card-icon"><Icon name="code" /></div><h2>On this device</h2><p>Offers and wallet requests are prepared locally. There are no accounts, bid APIs, wallet relays, analytics or remote fonts. Save your private bid file before leaving or refreshing. QR codes are generated on your device.</p></div>
+      <div className="card"><div className="card-icon"><Icon name="lock" /></div><h2>Before the deadline</h2><p>The organiser can see that an offer arrived, its block, and the fixed testnet payment. A correctly sealed offer does not reveal its amount. Competitors without the viewing key cannot read the notes.</p></div>
+      <div className="card"><div className="card-icon"><Icon name="shield" /></div><h2>When offers are opened</h2><p>Publishing the incoming viewing key makes every opened offer readable, including losing amounts and salts. No names or sender fields are added to the memos. Timing and outside information can still connect activity to a person.</p></div>
+      <div className="card"><div className="card-icon"><Icon name="code" /></div><h2>On this device</h2><p>Offers and wallet requests are prepared locally. There are no accounts, bid APIs, wallet relays, analytics, or remote fonts. Save your private bid file before leaving or refreshing. QR codes are generated on your device.</p></div>
       <div className="card"><div className="card-icon"><Icon name="alert" /></div><h2>Network visibility</h2><p>The static host can see page requests and IPs. Wallet servers and network observers may see metadata, and the organiser sees arrival timing. A compromised frontend could read what you type. Use a trusted local build and consider Tor for sensitive testing.</p></div>
     </div>
     <div className="card">
-      <h2>What this prototype can check.</h2>
+      <h2>What this build can and cannot check.</h2>
       <div className="table-wrap"><table className="threat-table"><thead><tr><th>Concern</th><th>Actual protection</th></tr></thead><tbody>
         <tr><td>An offer is changed afterwards</td><td>The amount and salt must reproduce an on-time commitment. A changed offer does not count.</td></tr>
         <tr><td>The group changes the rules</td><td>The rules fingerprint must be in the advertised anchor before bidding starts. Changed or unanchored rules fail.</td></tr>

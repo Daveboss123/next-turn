@@ -9,9 +9,9 @@ import { createPracticeRound } from './lib/practice.ts';
 import type { PracticeRound } from './lib/practice.ts';
 
 export type WorkspaceView = 'practice' | 'testnet' | 'audit' | 'privacy';
-const navigation: { id: WorkspaceView; name: string }[] = [
-  { id: 'practice', name: 'Practice round' }, { id: 'testnet', name: 'Use a wallet' },
-  { id: 'audit', name: 'Check a result' }, { id: 'privacy', name: 'Privacy' },
+const navigation: { id: WorkspaceView; name: string; short: string }[] = [
+  { id: 'practice', name: 'Practice round', short: 'Practice' }, { id: 'testnet', name: 'Use a wallet', short: 'Wallet' },
+  { id: 'audit', name: 'Check a result', short: 'Results' }, { id: 'privacy', name: 'Privacy', short: 'Privacy' },
 ];
 
 export default function Workspace({ view }: { view: WorkspaceView }) {
@@ -25,10 +25,10 @@ export default function Workspace({ view }: { view: WorkspaceView }) {
   }, []);
   function onPractice() { window.location.hash = 'app/practice'; }
   return <>
-    <header className="site-header"><div className="header-inner workspace-header">
+    <header className="site-header workspace-site-header"><div className="header-inner workspace-header">
       <Brand href="#app" app />
-      <nav className="main-nav" aria-label="App navigation">{navigation.map((item) => <a className={`nav-item ${view === item.id ? 'nav-active' : ''}`} key={item.id} aria-current={view === item.id ? 'page' : undefined} href={`#app/${item.id}`}>{item.name}</a>)}</nav>
-      <a className="button button-secondary button-small back-to-site" href="#">Back to site<Icon name="external" size={13} /></a>
+      <nav className="main-nav" aria-label="App navigation">{navigation.map((item) => <a className={`nav-item ${view === item.id ? 'nav-active' : ''}`} key={item.id} aria-current={view === item.id ? 'page' : undefined} href={`#app/${item.id}`}><span className="nav-label-full">{item.name}</span><span className="nav-label-short">{item.short}</span></a>)}</nav>
+      <a className="back-to-site" href="#">Back to site<Icon name="external" size={13} /></a>
     </div></header>
     <main id="main-content" className="main-content workspace-content" tabIndex={-1}>
       {view === 'practice' && (round ? <Practice round={round} onChange={setRound} receiptSaved={savedRoundHash === round.manifest.rulesHash} onReceiptSaved={() => setSavedRoundHash(round.manifest.rulesHash)} /> : <div className="card" role="status">{loadError ? 'Open this app on localhost or HTTPS in a modern browser to use the practice round.' : 'Preparing your practice round…'}</div>)}

@@ -35,7 +35,7 @@ export function PracticeWinnerClaim({ bundle, receipt }: { bundle: AuditBundle; 
   return <div className="winner-claim-panel">
     <h3>Prove this winning offer is yours.</h3>
     <p>Your private bid file contains a one-off proof key. It can answer a fresh challenge without sharing the file or a wallet key.</p>
-    <button className="button button-secondary" type="button" disabled={busy} aria-busy={busy} onClick={demonstrate}>{busy ? 'Checking ownership…' : 'Ownership check'}{busy ? <ButtonSpinner /> : <Icon name="check" size={16} />}</button>
+    <button className="button button-secondary" type="button" disabled={busy} aria-busy={busy} onClick={demonstrate}>{busy ? 'Checking ownership…' : 'Ownership check'}{busy ? <ButtonSpinner /> : <Icon name="shield" size={16} />}</button>
     <ErrorNotice message={error} />
     {proof && <div className={`notice ${valid ? 'notice-success' : 'notice-error'}`} role="status"><Icon name={valid ? 'check' : 'alert'} /><span>{valid ? 'The proof matches the winning bid’s key. No private bid file was shared.' : 'Ownership proof did not match.'}</span></div>}
     <p className="field-hint">Practice only: you play both roles here. This proves control of the bid key, not a person’s identity, membership or right to a payout.</p>
