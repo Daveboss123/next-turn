@@ -14,7 +14,7 @@ command and existing file/protocol formats keep their names for compatibility.
 **Public practice demo:** https://nextturn-pro.vercel.app/  
 **Source:** https://github.com/Daveboss123/next-turn
 
-## Current checkpoint: 26 October 2026
+## Current checkpoint: 27 October 2026
 
 Implemented:
 
@@ -26,6 +26,12 @@ Implemented:
   ring draws when reached, not on page load. Reduced motion is respected; no scroll
   hijack or external animation library.
 - Original local SVG charts using clearly labelled example rounds, not live data.
+- Responsive hero: the illustration sits beside the hero text at reduced size on
+  tablets and is hidden on phone widths. Checked from 360 px to 1280 px with no
+  horizontal overflow.
+- Editable **Round settings** for participants, pot, maximum discount and deadlines.
+  They open before an offer, collapse after applying, and lock once a bid exists.
+  Starting a new round keeps the settings and reopens the panel.
 - Practice flow: offer → save private bid file → close → open → check result.
 - A wrong-winner demonstration and separate public-result import/export.
 - A bid-file download acknowledgement that survives navigation within the app,
@@ -34,7 +40,9 @@ Implemented:
   money handling.
 - Version-2 bids bind a fresh Ed25519 proof key; local winner signing/checking and
   public challenge/proof files. Version-1 rules remain readable, without claiming
-  ownership verification. [Ownership and limits](docs/WINNER-PROOF.md).
+  ownership verification. The **Ownership check** button shows a spinner with
+  `Checking ownership…` while pending, and the spinner stays still under reduced
+  motion. [Ownership and limits](docs/WINNER-PROOF.md).
 - Testnet round-file and wallet request builders, including local QR codes,
   exact fields for manual Zingo entry, and fresh/stale local chain-tip gates.
 - Safe dedicated receiver creation: secret files stay local and only the public
@@ -46,9 +54,13 @@ Implemented:
 - No accounts, analytics, remote fonts, bid API or transaction relay. Production
   CSP blocks application network connections.
 
-**Build and public practice demo prepared for final review.** David is handling
-the video separately; it is not embedded in or deployed with the app. His actual
-video URL, registration/team, eligibility and final submission confirmation remain.
+**Build and public practice demo prepared for final review.** The 120-second,
+captioned practice-only demo video is rendered and verified locally: 1920×1080,
+30 fps, H.264 High, AAC stereo 48 kHz, exactly 120.000 s, with a "Try it yourself"
+end card. It shows the public practice flow with locally generated narration; the
+save acknowledgement is explicitly labelled as simulated. It is not embedded in or
+deployed with the app. David uploads it separately, and its public URL,
+registration/team, eligibility and final submission confirmation remain.
 A dedicated security review and genuine user feedback have not been completed.
 The current live checks confirm testnet connectivity, a funded Zingo wallet and
 one valid rules anchor; they are not proof of a completed sealed-offer round.
@@ -247,8 +259,8 @@ No real user feedback has been collected. Record consented observations in
 The source repository was approved for publication and verified public on
 25 October 2026: https://github.com/Daveboss123/next-turn.
 The public practice demo is deployed at https://nextturn-pro.vercel.app/.
-David supplies the required two-minute video separately. It is not part of the
-app deployment; the actual public video URL must be entered in the submission form.
+The required two-minute video is rendered and checked locally; David uploads it and
+supplies the public URL. It is not part of the app deployment.
 This repository being public does not mean the hackathon entry is submitted.
 
 ## Continue later

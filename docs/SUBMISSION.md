@@ -28,32 +28,60 @@ the anchor alone. No genuine user feedback has been collected.
 | --- | --- |
 | Repository | Public and verified: https://github.com/Daveboss123/next-turn. |
 | Working demo | Public: https://nextturn-pro.vercel.app/. Practice needs no wallet/account/payment. |
-| Two-minute video | David supplies and submits this separately. Add the actual public video URL to the form. No video is embedded in or deployed with the app. |
+| Two-minute video | Final 120-second practice-only cut rendered and checked locally. Not uploaded or deployed with the app; add its public URL after David uploads it. Details below. |
 
 MIT original-code licence is approved. Copied library/font/artwork notices retain
 their own terms. Build/artifact checks are not a full legal or security audit.
 
-## Suggested two-minute video outline
+## Final two-minute video: rendered locally, not uploaded
 
-David handles the video separately. An optional local candidate is a captioned
-presentation of seven fresh practice screenshots, not continuous live-wallet
-footage. Its 120-second duration and full decode were checked, and its seven
-representative frames/captions were reviewed. It has no audio, shows only fictional
-practice offers and labels its simulated save acknowledgement. It is not uploaded
-and does not provide the required public video URL.
+The current candidate is `NextTurn-ZECATHON-2min-demo.mp4` (also kept in the
+approved temporary workspace). It is separate from the app and is never deployed
+with it.
 
-| Time | What to show | Honest narration |
+Checked with ffprobe/ffmpeg on 27 October 2026:
+
+| Property | Value |
+| --- | --- |
+| Duration | 120.000 s, 3,600 frames |
+| Picture | 1920×1080, 30 fps, H.264 High, yuv420p, limited/TV range |
+| Sound | AAC LC, stereo, 48 kHz; -16.02 LUFS integrated, -1.46 dBTP |
+| Size / hash | 24,660,547 bytes; SHA-256 `FF39672EBE8A00A17698D37AD5F91D60CF196BA163F1968765CE6F7BDD4169C2` |
+| Full decode | Passed on the copied file |
+| Captions | 34 burned-in cues, local Manrope, no em dashes |
+| End card | 115.7–120.0 s: "Try it yourself", demo URL, practice/simulation disclosure |
+
+What it shows, in order:
+
+| Time | Chapter | Honest content |
 | --- | --- | --- |
-| 0:00–0:15 | Landing and fictional pot example | A bidding group offers to take less of a pot to receive this turn. NextTurn checks the round; it does not hold or pay the pot. |
-| 0:15–0:40 | Clearly labelled practice: make an offer, save file, close/open | This is simulation. Keys and offers are local; do not open the private JSON file on camera. |
-| 0:40–1:00 | Correct result, deliberately wrong winner rejected | The same fixed rules produce a deterministic result. Imported files alone cannot prove bids were not omitted. |
-| 1:00–1:25 | Actual native evidence available at recording time | Show only checks actually completed. At present, the real anchor passed; the complete live round is pending. If completed later, show its real retrieved records and result, not fabricated transactions. |
-| 1:25–1:45 | Ownership check and a fresh challenge/public proof | This proves a one-off bid key, not membership or identity. Public proof excludes the private key. Never reuse an accepted challenge. |
-| 1:45–2:00 | Privacy/limits and Open app | Losing prices become public after opening. No custody, eligibility or payout enforcement; server/network/frontend risks remain. Practice is usable without installing a wallet. |
+| 0:00–0:11 | Intro | Plain-language pot/discount idea; highest valid offer wins; the group still handles membership, contributions and payouts. |
+| 0:11–0:22 | Rules | Pot, maximum discount and deadlines are agreed first and bound into every offer. |
+| 0:22–0:30 | Practice | Clearly labelled simulation with a fictional pot and generated practice offers. |
+| 0:30–0:42 | Private file | The bid file holds the offer, salt and one-off proof key; the save acknowledgement is labelled as simulated in the recording. |
+| 0:42–1:00 | Sealed offers | Local commitments, wallet request builders and the native incoming-view path; no wallet appears on screen. |
+| 1:00–1:09 | Open and result | Close, open and check; the app does not hold or pay the pot. |
+| 1:09–1:18 | Wrong winner | The same fixed rules reject a deliberately changed declaration. |
+| 1:18–1:29 | Ownership | Spinner and `Checking ownership…`; this proves control of the bid key, not identity, membership or a right to a payout. |
+| 1:29–1:45 | Evidence | Distinguishes supplied-record checking, independent native chain retrieval and the one checked testnet rules anchor from the unfinished full live round. |
+| 1:45–2:00 | Limits and end card | Losing offers become public after opening; host, network, frontend and payout risks; then "Try it yourself" with the demo URL. |
 
-Use local licensed artwork/font and original charts. Do not show wallet backups,
-private file contents, private bid values before opening, identifying memo text or
-an invented participant count. Exactly one track: Private Markets.
+Scope and provenance: this is a continuous recording of the public practice demo,
+not a real-wallet round. It shows no wallet, seed, recovery phrase, private bid file
+contents, real participant group or mainnet payment. The two peer offers are
+generated by practice mode. One testnet rules anchor has passed; the full two-offer
+live round remains uncompleted and is shown only as a stated limitation. Narration is
+locally generated synthetic speech (Kokoro, `af_heart`). No stock footage, remote
+font, hosted chart widget or analytics is used. The capture workspace stays outside
+the repository; only public product copy was recorded.
+
+Before submitting: upload the MP4 to a public host that plays without login, open
+the link in a private window, then paste it into the form. Do not add the video to
+the app deployment.
+
+Use only local licensed artwork/fonts and original charts. Do not show wallet
+backups, private file contents, private bid values before opening, identifying memo
+text or an invented participant count. Exactly one track: Private Markets.
 
 ## Final human release gate
 
@@ -64,7 +92,10 @@ an invented participant count. Exactly one track: Private Markets.
 - [x] Approve the public repository and verify its actual visibility.
 - [x] Approve static hosting of `dist/` only; verify equivalent CSP/security headers.
 - [x] Working public demo tested from a fresh isolated browser on 26 October.
-- [ ] David supplies the separate two-minute video URL after reviewing its contents.
+- [x] Final 120-second practice-only video rendered and verified locally against the
+      required specs, including a full decode of the copied file.
+- [ ] David uploads that MP4, confirms the public URL plays without login, and
+      supplies it for the form. The video stays separate from the app deployment.
 - [ ] Review the final description, licences/notices and exact URL fields.
 - [ ] David submits through the official form and checks its confirmation.
 

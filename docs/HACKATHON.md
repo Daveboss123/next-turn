@@ -34,7 +34,11 @@ URL and a two-minute video, even though its older unauthenticated checklist says
       An unauthenticated HTTP check on 26 October returned 200 with the production
       no-connect CSP and no-referrer policy. Practice needs no account/payment/wallet.
       A fresh isolated browser passed 64 generated-fixture flow checks and 30 layout/motion checks on this URL.
-- [ ] Two-minute video URL supplied separately by David; no video is deployed with the app.
+- [x] Final 120-second practice-only video rendered, fully decoded and checked
+      locally: 1920×1080, 30 fps, H.264 High, AAC stereo 48 kHz, 120.000 s,
+      captioned, with a "Try it yourself" end card. See `docs/SUBMISSION.md`.
+- [ ] Public video URL: David uploads the MP4 and supplies the link. No video is
+      embedded in or deployed with the app.
 - [x] Description distinguishes browser simulation, tested logic and the single
       checked live anchor from the uncompleted full real-wallet round.
 - [ ] Registered account and eligibility confirmed by David.
@@ -82,8 +86,9 @@ Local technical preparation completed on 25 October:
       has no missing licence declarations/texts. This is not a legal audit.
 - [x] Build/source/distribution guards and local release-artifact checks added;
       these do not replace a complete privacy review.
-- [x] Description and two-minute storyboard drafted locally in `docs/SUBMISSION.md`;
-      no URLs, video upload or submission have been fabricated.
+- [x] Description and the final 120-second practice-only video prepared locally;
+      no URLs, video upload or submission have been fabricated. The video is not
+      uploaded and no public video URL exists yet.
 
 Do not call this submission-ready until the checklist above is complete. A green
 unit-test suite is not a privacy audit, a deployed demo, a live wallet proof, or a
