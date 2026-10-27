@@ -10,7 +10,7 @@ import type { PracticeRound } from './lib/practice.ts';
 
 export type WorkspaceView = 'practice' | 'testnet' | 'audit' | 'privacy';
 const navigation: { id: WorkspaceView; name: string; short: string }[] = [
-  { id: 'practice', name: 'Practice round', short: 'Practice' }, { id: 'testnet', name: 'Use a wallet', short: 'Wallet' },
+  { id: 'practice', name: 'Practice round', short: 'Practice' }, { id: 'testnet', name: 'Wallet rounds', short: 'Wallet' },
   { id: 'audit', name: 'Check a result', short: 'Results' }, { id: 'privacy', name: 'Privacy', short: 'Privacy' },
 ];
 

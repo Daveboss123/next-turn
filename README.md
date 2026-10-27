@@ -12,7 +12,7 @@ Previously called Sealed Tender. The checkout path, native `tender-verify`
 command and existing file/protocol formats keep their names for compatibility.
 
 **Public practice demo:** https://nextturn-pro.vercel.app/  
-**Source:** https://github.com/Daveboss123/sealed-tender
+**Source:** https://github.com/Daveboss123/next-turn
 
 ## Current checkpoint: 26 October 2026
 
@@ -46,9 +46,10 @@ Implemented:
 - No accounts, analytics, remote fonts, bid API or transaction relay. Production
   CSP blocks application network connections.
 
-**Not submission-ready:** the two-minute video and David's registration/team,
-eligibility and final submission confirmation remain. A dedicated security review
-and genuine user feedback have not been completed.
+**Build and public practice demo prepared for final review.** David is handling
+the video separately; it is not embedded in or deployed with the app. His actual
+video URL, registration/team, eligibility and final submission confirmation remain.
+A dedicated security review and genuine user feedback have not been completed.
 The current live checks confirm testnet connectivity, a funded Zingo wallet and
 one valid rules anchor; they are not proof of a completed sealed-offer round.
 The full two-offer wallet round has been set aside for the quick submission path.
@@ -244,9 +245,10 @@ No real user feedback has been collected. Record consented observations in
 [the feedback log](docs/FEEDBACK.md); never invent validation or participation.
 
 The source repository was approved for publication and verified public on
-25 October 2026: https://github.com/Daveboss123/sealed-tender.
+25 October 2026: https://github.com/Daveboss123/next-turn.
 The public practice demo is deployed at https://nextturn-pro.vercel.app/.
-The required two-minute video is still unfinished.
+David supplies the required two-minute video separately. It is not part of the
+app deployment; the actual public video URL must be entered in the submission form.
 This repository being public does not mean the hackathon entry is submitted.
 
 ## Continue later

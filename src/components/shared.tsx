@@ -62,8 +62,9 @@ export function ReceiptDownload({ receipt, onSaved, saved = false }: { receipt: 
     finally { if (current()) setBusy(false); }
   }
   return <div className="private-receipt">
-    <div className="receipt-label"><Icon name="lock" size={16} /><span>Keep a copy of your offer</span><span className="mini-pill">Private</span></div>
-    <p>You’ll need this file to open your offer later{receipt.claimPrivateKeyHex ? ' and prove it is yours if it wins' : ''}. Anyone with the file can read your amount. <strong>Keep it to yourself.</strong></p>
+    <div className="receipt-label"><Icon name="lock" size={16} /><span>Your private bid backup</span><span className="mini-pill">Private</span></div>
+    <p>This file holds your offer and its secret salt{receipt.claimPrivateKeyHex ? ', plus your one-off proof key' : ''}. You need it to open your offer later{receipt.claimPrivateKeyHex ? ' and prove control of it if it wins' : ''}. Anyone with the file can read your amount. <strong>Keep it to yourself.</strong></p>
+    <p className="field-hint">Saving this file does not send a bid or a payment. Practice keeps a temporary copy in memory; a wallet round needs your saved file after you close or reload the page.</p>
     <button type="button" className="button button-secondary" disabled={busy} aria-busy={busy} onClick={saveAs}>{busy ? <ButtonSpinner /> : <Icon name="download" size={17} />}{busy ? 'Saving locally…' : 'download my bid file'}</button>
     <ErrorNotice message={error} />
     {saved ? <p className="field-hint" role="status">Bid file saved or confirmed. Keep it private until you need it.</p> : requested && <div className="file-save-confirmation"><p className="field-hint">Your browser used its normal download flow. Check that the file is accessible in Downloads or your chosen folder. Embedded Review-browser downloads may stay inside its file panel.</p>{onSaved && <label className="checkbox-field"><input type="checkbox" aria-label="I saved my bid file" disabled={busy} onChange={(event) => { if (event.target.checked) onSaved(); }} /><span>I have this bid file saved locally.</span></label>}</div>}

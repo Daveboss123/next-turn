@@ -161,6 +161,11 @@ try {
   await command('Emulation.setDeviceMetricsOverride', { width: 1280, height: 900, deviceScaleFactor: 1, mobile: false }, sessionId);
   await click('Open app', 'a');
   await wait(`document.querySelector('#practice-discount')`);
+  await check(`Boolean(document.querySelector('#practice-settings-form')) && ${button('Place practice offer')}.disabled`, 'Practice opens with editable round settings before an offer can be placed');
+  await evaluate(`(()=>{const set=(id,value)=>{const input=document.querySelector(id);Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(input,value);input.dispatchEvent(new Event('input',{bubbles:true}));};set('#practice-rules-members','4');set('#practice-rules-cap','20');})()`);
+  await click('Use these practice rules');
+  await wait(`!document.querySelector('#practice-settings-form')`);
+  await check(`document.querySelector('.round-stats').textContent.includes('Participants4') && document.querySelector('#practice-cap').textContent.includes('NGN 120,000')`, 'Editing participants and the offer limit regenerates the practice rules');
   await click('Place practice offer');
   await wait(`${button('Close bidding')}`);
   await check(`${button('Close bidding')}.disabled`, 'Practice requires requesting the private bid download before closing');

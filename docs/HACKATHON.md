@@ -1,6 +1,6 @@
 # ZECATHON compliance checklist
 
-Reverified against the official site's published content on **25 October 2026**:
+Reverified against the official site's published content on **26 October 2026**:
 
 - [Event rules, dates and criteria](https://thezecathon.com/darkpool/data.js)
 - [Submission form requirements](https://thezecathon.com/darkpool/forms.js)
@@ -26,16 +26,17 @@ URL and a two-minute video, even though its older unauthenticated checklist says
 
 ## Required submission material
 
-- [ ] Project name and description (form limit: 2,000 characters).
-- [ ] Exactly one track: Private Markets.
+- [x] Project name and description prepared in `docs/SUBMISSION.md` (form limit: 2,000 characters).
+- [x] Exactly one track for NextTurn: Private Markets. This is a prepared choice, not a submitted form.
 - [x] Public repository URL; verified public on 25 October:
-      https://github.com/Daveboss123/sealed-tender.
+      https://github.com/Daveboss123/next-turn.
 - [x] Public demo deployed with approval: https://nextturn-pro.vercel.app/.
       An unauthenticated HTTP check on 26 October returned 200 with the production
       no-connect CSP and no-referrer policy. Practice needs no account/payment/wallet.
-- [ ] Two-minute video URL.
-- [ ] Honest distinction between browser simulation, tested cryptographic logic,
-      live chain reading, and a fully demonstrated real-wallet commit/reveal round.
+      A fresh isolated browser passed 64 generated-fixture flow checks and 30 layout/motion checks on this URL.
+- [ ] Two-minute video URL supplied separately by David; no video is deployed with the app.
+- [x] Description distinguishes browser simulation, tested logic and the single
+      checked live anchor from the uncompleted full real-wallet round.
 - [ ] Registered account and eligibility confirmed by David.
 - [ ] Team created/joined in the official form, including a one-person team for a solo entry.
 - [ ] David explicitly submits and checks confirmation in the official form.

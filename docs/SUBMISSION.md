@@ -1,4 +1,4 @@
-# ZECATHON submission draft — not submitted
+# ZECATHON submission pack: not submitted
 
 **Project:** NextTurn  
 **Exactly one track:** Private Markets  
@@ -26,14 +26,21 @@ the anchor alone. No genuine user feedback has been collected.
 
 | Field | Status |
 | --- | --- |
-| Repository | Public and verified: https://github.com/Daveboss123/sealed-tender. |
+| Repository | Public and verified: https://github.com/Daveboss123/next-turn. |
 | Working demo | Public: https://nextturn-pro.vercel.app/. Practice needs no wallet/account/payment. |
-| Two-minute video | Practice-only scenes captured; encoding, final privacy review and a public video URL are still pending. No wallet backups or private JSON contents were captured. |
+| Two-minute video | David supplies and submits this separately. Add the actual public video URL to the form. No video is embedded in or deployed with the app. |
 
 MIT original-code licence is approved. Copied library/font/artwork notices retain
 their own terms. Build/artifact checks are not a full legal or security audit.
 
-## Two-minute storyboard
+## Suggested two-minute video outline
+
+David handles the video separately. An optional local candidate is a captioned
+presentation of seven fresh practice screenshots, not continuous live-wallet
+footage. Its 120-second duration and full decode were checked, and its seven
+representative frames/captions were reviewed. It has no audio, shows only fictional
+practice offers and labels its simulated save acknowledgement. It is not uploaded
+and does not provide the required public video URL.
 
 | Time | What to show | Honest narration |
 | --- | --- | --- |
@@ -51,15 +58,28 @@ an invented participant count. Exactly one track: Private Markets.
 ## Final human release gate
 
 - [ ] David confirms eligibility and registration; creates/joins the required team.
-- [ ] Privacy review of the exact source/public evidence intended for release.
-- [ ] Complete real-wallet round, or retain an explicit unfinished-live-flow disclosure.
+- [x] Source/distribution filename guards, licence inventory and generated-fixture
+      export/storage/network checks passed. This is not a complete security audit.
+- [x] Retain the explicit unfinished-live-flow disclosure for the approved quick finish.
 - [x] Approve the public repository and verify its actual visibility.
 - [x] Approve static hosting of `dist/` only; verify equivalent CSP/security headers.
-- [ ] Working public demo tested from a fresh browser.
-- [ ] Two-minute video recorded, reviewed for leaks and uploaded with approval.
+- [x] Working public demo tested from a fresh isolated browser on 26 October.
+- [ ] David supplies the separate two-minute video URL after reviewing its contents.
 - [ ] Review the final description, licences/notices and exact URL fields.
 - [ ] David submits through the official form and checks its confirmation.
 
 See `docs/HACKATHON.md`. A saved draft is not a submitted project. Publishing the
 source and static demo was approved. David must explicitly submit the entry;
 no automatic wallet spending or mainnet use is authorised.
+
+## Form steps
+
+1. Sign in to the account intended for **NextTurn**, and create/join its required team.
+2. Enter **NextTurn** and select **Private Markets** only.
+3. Paste the description above, repository URL and working demo URL.
+4. Paste David's separate public two-minute video URL. Check that it opens without login.
+5. Confirm the public-repository checkbox and review every field.
+6. Click **SUBMIT**, then check the form's submitted confirmation and timestamp.
+
+**SAVE DRAFT is not submission.** The current form also warns that saving a draft
+after submitting withdraws the submitted state until **SUBMIT** is clicked again.

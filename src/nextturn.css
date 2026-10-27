@@ -99,9 +99,11 @@
 .hero-art-bar > span:first-child { display: inline-flex; align-items: center; gap: 7px; }
 .hero-art-bar .mini-pill { background: #ffffff; }
 .hero-art .offer-illustration { padding: 8px 24px 5px; }
-.hero-art .illustration-stage { --illos-play: paused; --illos-accent: #2e7b51; --illos-ink: #365342; --illos-ground: #f7fbf8; max-height: 390px; aspect-ratio: 365 / 405; border-radius: 14px; background: radial-gradient(circle at 50% 44%, #eaf5ee 0%, #f8fbf9 58%, #ffffff 100%); }
+.hero-art .illustration-stage { --illos-accent: #2e7b51; --illos-ink: #365342; --illos-ground: #f7fbf8; max-height: 390px; aspect-ratio: 365 / 405; border-radius: 14px; background: radial-gradient(circle at 50% 44%, #eaf5ee 0%, #f8fbf9 58%, #ffffff 100%); }
 .hero-art .offer-illustration figcaption { display: flex; align-items: center; justify-content: center; gap: 18px; padding: 3px 0 14px; color: #627668; font-size: 11.5px; }
-.illustration-replay { font-size: 11px; color: #3e684c; }
+.illustration-replay { display: inline-flex; align-items: center; gap: 5px; min-height: 32px; padding: 6px 8px; border: 0; border-radius: 6px; background: transparent; font: inherit; font-size: 11px; color: #3e684c; cursor: pointer; }
+.illustration-replay:hover:not(:disabled) { background: #e8f2eb; }
+.illustration-replay:disabled { cursor: default; }
 .hero-art .illustration-replay:hover:not(:disabled) { color: var(--forest-deep); }
 
 /* Landing: sample round */
@@ -262,6 +264,18 @@
 .practice-page-heading .eyebrow { margin-bottom: 9px; }
 .practice-page-heading .section-subtitle { max-width: 620px; margin-top: 12px; color: #5a7062; font-size: 15px; line-height: 1.65; }
 .practice-page-heading .mode-pill { margin-bottom: 5px; }
+.practice-settings { padding: 24px 26px; margin-bottom: 26px; background: #fbfdfb; transition: border-color .18s ease, background .18s ease; }
+.practice-settings-open { border-color: #cfe2d5; background: #ffffff; }
+.settings-heading { display: flex; align-items: flex-start; justify-content: space-between; gap: 22px; }
+.settings-heading h2 { margin: 0 0 6px; color: #172b1f; font-size: 20px; line-height: 1.25; letter-spacing: -.5px; font-weight: 650; }
+.settings-heading p { max-width: 630px; color: #596f60; font-size: 13.5px; line-height: 1.65; }
+.settings-heading > .button, .settings-heading > .mini-pill { flex-shrink: 0; }
+.practice-settings form { margin-top: 22px; padding-top: 22px; border-top: 1px solid var(--line); }
+.settings-fields { min-width: 0; margin: 0; padding: 0; border: 0; }
+.settings-fields .field small { display: block; margin-top: 7px; color: #5d7365; font-size: 11.5px; line-height: 1.55; }
+.settings-fields .field input:focus, .settings-fields .field select:focus { border-color: #6d9a7e; box-shadow: 0 0 0 3px #e1efe6; outline: none; }
+.practice-settings .button[type="submit"] { min-width: 220px; }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
 
 .round-workspace { display: grid; grid-template-columns: 1.08fr .92fr; gap: 26px; align-items: start; }
 .card { padding: 32px; margin-bottom: 26px; border: 1px solid var(--line); border-radius: var(--radius); background: #ffffff; box-shadow: 0 1px 2px #12321f05; }
@@ -425,11 +439,17 @@
 }
 
 @media (max-width: 900px) {
-  .nextturn-hero { grid-template-columns: 1fr; min-height: 0; padding: 58px 0 52px; gap: 36px; }
-  .nextturn-hero-copy { max-width: 680px; }
-  .nextturn-hero h1 { max-width: 680px; font-size: 56px; }
-  .hero-description { max-width: 620px; }
-  .hero-art { max-width: 500px; width: 100%; justify-self: center; }
+  .nextturn-hero { grid-template-columns: minmax(0, 1fr) minmax(250px, .72fr); min-height: 0; padding: 58px 0 52px; gap: 28px; }
+  .nextturn-hero-copy { max-width: none; }
+  .nextturn-hero h1 { max-width: none; font-size: clamp(38px, 5.3vw, 48px); letter-spacing: -1.9px; }
+  .hero-description { font-size: 14.5px; line-height: 1.65; margin: 18px 0 24px; }
+  .hero-art { max-width: 330px; width: 100%; justify-self: end; }
+  .hero-art-bar { padding: 11px 13px; gap: 8px; font-size: 11px; }
+  .hero-art .mini-pill { padding: 4px 7px; font-size: 9.5px; }
+  .hero-art .offer-illustration { padding: 4px 12px 2px; }
+  .hero-art .illustration-stage { max-height: 280px; }
+  .hero-art .offer-illustration figcaption { gap: 10px; padding: 2px 0 10px; font-size: 10px; }
+  .hero-art .illustration-replay { font-size: 10px; }
   .landing-preview-grid { grid-template-columns: 1fr 1fr; }
   .landing-round-summary, .landing-ticket { padding: 29px 26px; }
   .landing-round-summary > strong { font-size: 35px; }
@@ -452,10 +472,10 @@
   .landing-nav { display: none; }
   .landing-header .button { margin-left: auto; }
   .landing-content { padding: 0 24px 24px; }
-  .nextturn-hero { padding: 46px 0 44px; }
+  .nextturn-hero { grid-template-columns: 1fr; padding: 46px 0 44px; }
   .nextturn-hero h1 { font-size: 48px; letter-spacing: -2.2px; }
-  .hero-description { font-size: 15.5px; }
-  .hero-art { justify-self: stretch; max-width: 470px; margin: 0 auto; }
+  .hero-description { max-width: 620px; font-size: 15.5px; }
+  .hero-art { display: none; }
   .landing-preview { margin-bottom: 62px; border-radius: 16px; }
   .landing-preview-grid { grid-template-columns: 1fr; }
   .landing-round-summary { border-right: 0; border-bottom: 1px solid #e3ebe5; }
@@ -514,9 +534,6 @@
   .nextturn-hero .button { min-height: 48px; }
   .nextturn-hero .hero-proof { align-items: flex-start; margin-top: 16px; font-size: 11.5px; }
   .nextturn-hero .hero-proof svg { margin-top: 1px; }
-  .hero-art { border-radius: 16px; }
-  .hero-art .offer-illustration { padding: 8px 16px 4px; }
-  .hero-art .illustration-stage { max-height: 320px; }
   .landing-preview { margin-bottom: 48px; border-radius: 14px; }
   .landing-preview-bar { padding: 14px 18px; font-size: 12.5px; }
   .landing-preview-bar > span:first-child { gap: 7px; }
@@ -576,6 +593,10 @@
   .round-stats span { margin-bottom: 0; font-size: 11.5px; }
   .round-stats strong { font-size: 22px; letter-spacing: -.6px; white-space: nowrap; }
   .round-stats small { display: inline; margin: 0 0 0 5px; font-size: 10px; }
+  .practice-settings { padding: 20px 18px; }
+  .settings-heading { flex-direction: column; gap: 14px; }
+  .settings-heading .button { width: 100%; }
+  .practice-settings .button[type="submit"] { width: 100%; min-width: 0; }
   .card { padding: 22px 20px; border-radius: 13px; }
   .card-heading h3, .card-heading h2 { font-size: 20px; }
   .card-heading p { font-size: 13px; }
