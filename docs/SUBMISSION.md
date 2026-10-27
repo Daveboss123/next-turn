@@ -59,12 +59,12 @@ What it shows, in order:
 | 0:11–0:22 | Rules | Pot, maximum discount and deadlines are agreed first and bound into every offer. |
 | 0:22–0:30 | Practice | Clearly labelled simulation with a fictional pot and generated practice offers. |
 | 0:30–0:42 | Private file | The bid file holds the offer, salt and one-off proof key; the save acknowledgement is labelled as simulated in the recording. |
-| 0:42–1:00 | Sealed offers | Local commitments, wallet request builders and the native incoming-view path; no wallet appears on screen. |
-| 1:00–1:09 | Open and result | Close, open and check; the app does not hold or pay the pot. |
-| 1:09–1:18 | Wrong winner | The same fixed rules reject a deliberately changed declaration. |
+| 0:42–1:00 | Sealed offers | Sealed practice offer, other offers hidden, round rules; narration explains shielded memos, viewing-key disclosure after closing, native recomputation, and that opened amounts and salts become public, including losing offers. |
+| 1:00–1:09 | Open and result | Close bidding, open the saved offer and show the result; every opened offer is checked against the rules fixed at the start. |
+| 1:09–1:18 | Deterministic result | The matching result and payout illustration; a mismatched declaration is rejected; the group still pays the winner outside NextTurn. |
 | 1:18–1:29 | Ownership | Spinner and `Checking ownership…`; this proves control of the bid key, not identity, membership or a right to a payout. |
-| 1:29–1:45 | Evidence | Distinguishes supplied-record checking, independent native chain retrieval and the one checked testnet rules anchor from the unfinished full live round. |
-| 1:45–2:00 | Limits and end card | Losing offers become public after opening; host, network, frontend and payout risks; then "Try it yourself" with the demo URL. |
+| 1:29–1:45 | Wrong winner and retrieval | A wrong declared winner fails without changing offers; imported results cannot prove completeness, so native chain retrieval is explained. |
+| 1:45–2:00 | Audience and end card | Savings groups, cooperatives and community funds; practice demo URL; then the "Try it yourself" end card. |
 
 Scope and provenance: this is a continuous recording of the public practice demo,
 not a real-wallet round. It shows no wallet, seed, recovery phrase, private bid file
